@@ -1,0 +1,14 @@
+.menu {
+    display: flex;
+    justify-content: center;
+}
+.item a{
+    font-size: 30px;
+    font-weight: bold;
+    color: #9398a9;
+    text-decoration: none;
+    margin-right: 10px;
+}
+.item a.activeLick {
+    color: #0f0fb4;
+}

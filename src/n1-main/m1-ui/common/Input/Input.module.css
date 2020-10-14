@@ -1,0 +1,17 @@
+.input {
+    margin: 10px;
+    padding: 5px;
+    font-size: 17px;
+    border-radius: 15px;
+    border: 5px solid rgb(110,121,128);
+    background: rgb(206, 220, 231) linear-gradient(rgb(206,220,231), rgb(89,106,114));
+    outline: none;
+    color: #333;
+    width: 200px;
+    height: 15px;
+    left: 30px;
+}
+
+.error {
+    border: red 1px solid;
+}
