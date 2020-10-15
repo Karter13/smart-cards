@@ -1,25 +1,26 @@
 import React from 'react';
 import styles from './Header.module.css'
 import {NavLink} from 'react-router-dom';
+import {LOGIN, NEW_PASS, PROFILE, RECOVER_PASSWORD, REGISTRATION} from '../routes/Routes';
 
 export const Header = () => {
     return (
         <div className={styles.nav}>
             <div className={styles.menu} >
                 <div className={styles.item}>
-                    <NavLink exact to={'/'} activeClassName={styles.activeLick}>Profile</NavLink>
+                    <NavLink exact to={PROFILE} activeClassName={styles.activeLick}>Profile</NavLink>
                 </div>
                 <div className={styles.item}>
-                    <NavLink to={'/login'} activeClassName={styles.activeLick}>Login</NavLink>
+                    <NavLink to={LOGIN} activeClassName={styles.activeLick}>Login</NavLink>
                 </div>
                 <div className={styles.item}>
-                    <NavLink to={'/registration'} activeClassName={styles.activeLick}>Registration</NavLink>
+                    <NavLink to={REGISTRATION} activeClassName={styles.activeLick}>Registration</NavLink>
                 </div>
                 <div className={styles.item}>
-                    <NavLink to={'/recoverPassword'} activeClassName={styles.activeLick}>RecoverPassword</NavLink>
+                    <NavLink to={RECOVER_PASSWORD} activeClassName={styles.activeLick}>RecoverPassword</NavLink>
                 </div>
                 <div className={styles.item}>
-                    <NavLink to={'/newPass'} activeClassName={styles.activeLick}>NewPass</NavLink>
+                    <NavLink to={NEW_PASS} activeClassName={styles.activeLick}>NewPass</NavLink>
                 </div>
             </div>
         </div>

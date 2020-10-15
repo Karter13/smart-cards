@@ -6,7 +6,7 @@ export type InputProsType ={
     value: string
     pressEnter?: (event: KeyboardEvent<HTMLInputElement>) => void
     error?: string | null
-    onBlur?: () => void
+    onBlur: () => void
 }
 
 export const Input: React.FC<InputProsType> = React.memo( (props) => {
@@ -19,11 +19,11 @@ export const Input: React.FC<InputProsType> = React.memo( (props) => {
     return (
         <div>
             <input className={props.error ? `${style.input} ${style.error}` : style.input} type="text"
-                   value={props.value}
-                   // onChange={newText}
-                   onKeyPress={props.pressEnter}
                    autoFocus
+                   value={props.value}
+                   onChange={newText}
                    onBlur={props.onBlur}
+                // onKeyPress={props.pressEnter}
             />
         </div>
     )

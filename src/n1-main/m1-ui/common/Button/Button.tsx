@@ -7,6 +7,7 @@ export type ButtonPropsType = {
     red?: string
 }
 
+
 export const Button: React.FC<ButtonPropsType> = React.memo((props) => {
     return (
         <>
