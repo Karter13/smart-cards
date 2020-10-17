@@ -13,7 +13,13 @@ export const LoginForm = () => {
                 <Checkbox checkboxValue={true} changeValue={() => console.log('checkBoxTrue')}/>
                 remember me
             </div>
+            <div>
+                fogot
+            </div>
             <Button click={() => console.log('clickButton')} value={'login'}/>
+            <div>
+                register
+            </div>
         </div>
     )
 };
