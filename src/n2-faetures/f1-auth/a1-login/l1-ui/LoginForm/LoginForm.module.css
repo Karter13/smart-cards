@@ -1,5 +1,30 @@
+.loginBlock {
+    font-size: 25px;
+    margin: 0 auto;
+    width: 400px;
+    padding: 30px;
+    border: 6px solid rgb(89, 106, 114);
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.inputBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .checkboxBlock {
     display: flex;
-    align-items: center;
-    font-size: 20px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 25px;
+}
+
+.link {
+    margin: 10px;
 }
