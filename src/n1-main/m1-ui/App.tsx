@@ -13,7 +13,6 @@ export const App: React.FC<AppPropsType> = (props) => {
             <HashRouter>
                 <Provider store={store}>
                     <div>
-                        <h1>REACT FOREVER</h1>
                         <Main/>
                     </div>
                 </Provider>

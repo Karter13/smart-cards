@@ -6,7 +6,7 @@ export type InputProsType ={
     value: string
     pressEnter?: (event: KeyboardEvent<HTMLInputElement>) => void
     error?: string | null
-    onBlur: () => void
+    onBlur?: () => void
 }
 
 export const Input: React.FC<InputProsType> = React.memo( (props) => {
