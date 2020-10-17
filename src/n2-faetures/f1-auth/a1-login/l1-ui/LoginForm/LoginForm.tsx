@@ -20,7 +20,9 @@ export const LoginForm = () => {
                 <Checkbox checkboxValue={true} changeValue={() => console.log('checkBoxTrue')}/>
                 <span>remember me</span>
             </div>
+
             <Button click={() => console.log('clickButton')} value={'login'}/>
+
             <div className={style.link}>
                 <NavLink to={RECOVER_PASSWORD} activeClassName={styles.activeLick}>fogot fassword?</NavLink>
             </div>

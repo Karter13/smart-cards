@@ -1,4 +1,3 @@
-
 const initialState = {};
 type InitialStateType = typeof initialState
 
