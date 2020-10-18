@@ -7,10 +7,26 @@ const instanse = axios.create({
 
 export const authAPI = {
     login(data: any) {
-        return instanse.post<any>('auth/login', data)
+        return instanse.post<UserType>('auth/login', data)
     }
 };
 
-
-
-
+// types for auth
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+export type UserType = {
+    _id: string,
+    email: string,
+    name: string,
+    avatar: string,
+    publicCardPacksCount: number, // количество колод
+    created: Date,
+    updated: Date,
+    isAdmin: boolean,
+    verified: boolean, // подтвердил ли почту
+    rememberMe: boolean,
+    error: string,
+}

@@ -1,3 +1,6 @@
+import {Dispatch} from 'redux';
+import {authAPI, LoginParamsType, UserType} from '../l3-dal/cards-api';
+
 const initialState = {
     user: {
         _id: '',
@@ -33,22 +36,23 @@ export const setUserAC = (user: UserType) =>
     ({type: 'login/SET_USER', user} as const);
 
 // thunks
+export const loginTc = (data: LoginParamsType) => (dispatch: Dispatch) => {
+    authAPI.login(data)
+        .then((res) => {
+            if(res.data) {
+                dispatch(setUserAC(res.data));
+                dispatch(setIsLoginInAC(true))
+            }
+        })
+        .catch((e) => {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+            console.log('Error.', {...e});
+            console.log(error);
+        })
+};
 
 
 // types
-export type UserType = {
-    _id: string,
-    email: string,
-    name: string,
-    avatar: string,
-    publicCardPacksCount: number, // количество колод
-    created: Date,
-    updated: Date,
-    isAdmin: boolean,
-    verified: boolean, // подтвердил ли почту
-    rememberMe: boolean,
-    error: string,
-}
 export type AuthInitialStateType = typeof initialState
 type ActionsType = ReturnType<typeof setIsLoginInAC>
     | ReturnType<typeof setUserAC>

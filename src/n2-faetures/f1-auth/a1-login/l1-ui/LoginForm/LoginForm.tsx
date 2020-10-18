@@ -8,7 +8,8 @@ import {RECOVER_PASSWORD, REGISTRATION} from '../../../../../n1-main/m1-ui/route
 import styles from '../../../../../n1-main/m1-ui/header/Header.module.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../../../n1-main/m2-bll/store';
-import {setIsLoginInAC, setUserAC, UserType} from '../../l2-bll/auth-reducer';
+import {setIsLoginInAC, setUserAC} from '../../l2-bll/auth-reducer';
+import {UserType} from '../../l3-dal/cards-api';
 
 export const LoginForm = React.memo(() => {
 
