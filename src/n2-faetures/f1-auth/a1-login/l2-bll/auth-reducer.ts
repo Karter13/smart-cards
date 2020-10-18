@@ -5,8 +5,8 @@ const initialState = {
         name: '',
         avatar: '',
         publicCardPacksCount: 0, // количество колод
-        created: '',
-        updated: '',
+        created: new Date(),
+        updated: new Date(),
         isAdmin: false,
         verified: false, // подтвердил ли почту
         rememberMe: false,
@@ -15,35 +15,39 @@ const initialState = {
     isLoggedIn: false,
 };
 
-export const authReducer = (state: authInitialStateType = initialState, action: ActionsType): authInitialStateType => {
+export const authReducer = (state: AuthInitialStateType = initialState, action: ActionsType): AuthInitialStateType => {
     switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN':
+        case 'login/SET_IS_LOGGED_IN':
             return {...state, isLoggedIn: action.value};
+        case 'login/SET_USER':
+            return {...state, user: {...action.user}};
         default:
             return state
     }
 };
 
 // actions
-export const setIsLoggedInAC = (value: boolean) =>
-    ({type: 'login/SET-IS-LOGGED-IN', value} as const);
+export const setIsLoginInAC = (value: boolean) =>
+    ({type: 'login/SET_IS_LOGGED_IN', value} as const);
+export const setUserAC = (user: UserType) =>
+    ({type: 'login/SET_USER', user} as const);
+
 // thunks
 
 // types
-type ActionsType = ReturnType<typeof setIsLoggedInAC>
-
-
-// export type userType = {
-//     _id: string,
-//     email: string,
-//     name: string,
-//     avatar: string,
-//     publicCardPacksCount: number, // количество колод
-//     created: Date,
-//     updated: Date,
-//     isAdmin: boolean,
-//     verified: boolean, // подтвердил ли почту
-//     rememberMe: boolean,
-//     error: string,
-// }
-export type authInitialStateType = typeof initialState
+export type UserType = {
+    _id: string,
+    email: string,
+    name: string,
+    avatar: string,
+    publicCardPacksCount: number, // количество колод
+    created: Date,
+    updated: Date,
+    isAdmin: boolean,
+    verified: boolean, // подтвердил ли почту
+    rememberMe: boolean,
+    error: string,
+}
+export type AuthInitialStateType = typeof initialState
+type ActionsType = ReturnType<typeof setIsLoginInAC>
+    | ReturnType<typeof setUserAC>
