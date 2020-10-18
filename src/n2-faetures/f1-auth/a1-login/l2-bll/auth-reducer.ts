@@ -34,6 +34,7 @@ export const setUserAC = (user: UserType) =>
 
 // thunks
 
+
 // types
 export type UserType = {
     _id: string,
