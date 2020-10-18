@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Input} from '../../../../../n1-main/m1-ui/common/Input/Input';
 import {Button} from '../../../../../n1-main/m1-ui/common/Button/Button';
 import {Checkbox} from '../../../../../n1-main/m1-ui/common/Checkbox/Checkbox';
@@ -16,25 +16,22 @@ export const LoginForm = React.memo(() => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
     const dispatch = useDispatch();
 
-    console.log(user);
-    console.log(isLoggedIn);
-
     const [mailValue, setMailValue] = useState('email');
     const [password, setPassword] = useState('password');
     const [check, setCheck] = useState(false);
 
-    const enterEmail = (value: string) => {
+    const enterEmail = useCallback((value: string) => {
         setMailValue(value)
-    };
-    const enterPassword = (value: string) => {
+    }, []);
+    const enterPassword = useCallback((value: string) => {
         setPassword(value)
-    };
-    const changeStatus = (value: boolean) => {
+    }, []);
+    const changeStatus = useCallback((value: boolean) => {
         setCheck(value)
-    };
+    }, []);
 
-    const onSubmit = () => {
-        dispatch(setIsLoginInAC(true));
+    const onSubmit = useCallback(() => {
+        dispatch(setIsLoginInAC(check));
         dispatch(setUserAC({
             _id: '1',
             email: '2',
@@ -48,7 +45,7 @@ export const LoginForm = React.memo(() => {
             rememberMe: true,
             error: 'error',
         }))
-    };
+    }, [check]);
 
     return (
 
