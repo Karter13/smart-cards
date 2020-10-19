@@ -1,6 +1,9 @@
 import {Dispatch} from 'redux';
 import {authAPI, LoginParamsType, UserType} from '../l3-dal/cards-api';
 
+const SET_IS_LOGGED_IN = 'login/SET_IS_LOGGED_IN';
+const SET_USER = 'login/SET_USER';
+
 const initialState = {
     user: {
         _id: '',
@@ -20,9 +23,9 @@ const initialState = {
 
 export const authReducer = (state: AuthInitialStateType = initialState, action: ActionsType): AuthInitialStateType => {
     switch (action.type) {
-        case 'login/SET_IS_LOGGED_IN':
+        case SET_IS_LOGGED_IN:
             return {...state, isLoggedIn: action.value};
-        case 'login/SET_USER':
+        case SET_USER:
             return {...state, user: {...action.user}};
         default:
             return state
@@ -31,9 +34,9 @@ export const authReducer = (state: AuthInitialStateType = initialState, action: 
 
 // actions
 export const setIsLoginInAC = (value: boolean) =>
-    ({type: 'login/SET_IS_LOGGED_IN', value} as const);
+    ({type: SET_IS_LOGGED_IN, value} as const);
 export const setUserAC = (user: UserType) =>
-    ({type: 'login/SET_USER', user} as const);
+    ({type: SET_USER, user} as const);
 
 // thunks
 export const loginTc = (data: LoginParamsType) => (dispatch: Dispatch) => {
@@ -45,9 +48,7 @@ export const loginTc = (data: LoginParamsType) => (dispatch: Dispatch) => {
             }
         })
         .catch((e) => {
-            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
-            console.log('Error.', {...e});
-            console.log(error);
+
         })
 };
 
