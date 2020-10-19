@@ -3,6 +3,7 @@ import {authAPI, LoginParamsType, UserType} from '../l3-dal/cards-api';
 
 const SET_IS_LOGGED_IN = 'login/SET_IS_LOGGED_IN';
 const SET_USER = 'login/SET_USER';
+const SET_ERROR = 'login/SET-ERROR';
 
 const initialState = {
     user: {
@@ -19,6 +20,7 @@ const initialState = {
         error: '',
     },
     isLoggedIn: false,
+    error: null as string | null,
 };
 
 export const authReducer = (state: AuthInitialStateType = initialState, action: ActionsType): AuthInitialStateType => {
@@ -27,6 +29,8 @@ export const authReducer = (state: AuthInitialStateType = initialState, action: 
             return {...state, isLoggedIn: action.value};
         case SET_USER:
             return {...state, user: {...action.user}};
+        case SET_ERROR:
+            return {...state, error: action.error};
         default:
             return state
     }
@@ -37,18 +41,23 @@ export const setIsLoginInAC = (value: boolean) =>
     ({type: SET_IS_LOGGED_IN, value} as const);
 export const setUserAC = (user: UserType) =>
     ({type: SET_USER, user} as const);
+export const setAppErrorAC = (error: string | null) =>
+    ({type: SET_ERROR, error} as const);
 
 // thunks
 export const loginTc = (data: LoginParamsType) => (dispatch: Dispatch) => {
     authAPI.login(data)
         .then((res) => {
-            if(res.data) {
+            console.log(res.data);
+            if (res.data) {
                 dispatch(setUserAC(res.data));
                 dispatch(setIsLoginInAC(true))
+            } else {
             }
         })
         .catch((e) => {
-
+            console.log(e.response.data.error);
+            setAppErrorAC(e.response.data.error ? e.response.data.error : 'Some error occurred')
         })
 };
 
@@ -57,3 +66,4 @@ export const loginTc = (data: LoginParamsType) => (dispatch: Dispatch) => {
 export type AuthInitialStateType = typeof initialState
 type ActionsType = ReturnType<typeof setIsLoginInAC>
     | ReturnType<typeof setUserAC>
+    | ReturnType<typeof setAppErrorAC>
