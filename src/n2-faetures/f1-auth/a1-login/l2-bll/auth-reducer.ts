@@ -53,11 +53,11 @@ export const loginTc = (data: LoginParamsType) => (dispatch: Dispatch) => {
                 dispatch(setUserAC(res.data));
                 dispatch(setIsLoginInAC(true))
             } else {
+                dispatch(setAppErrorAC('error'))
             }
         })
         .catch((e) => {
-            console.log(e.response.data.error);
-            setAppErrorAC(e.response.data.error ? e.response.data.error : 'Some error occurred')
+            dispatch(setAppErrorAC(e.response ? (e.response.data.error) : (e.message + ', more details in the console')))
         })
 };
 

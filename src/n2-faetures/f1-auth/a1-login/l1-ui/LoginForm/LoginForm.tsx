@@ -13,6 +13,7 @@ import {AppRootStateType} from '../../../../../n1-main/m2-bll/store';
 export const LoginForm = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
+    const error = useSelector<AppRootStateType, string | null>(state => state.auth.error);
     const dispatch = useDispatch();
 
     const [email, setEmail] = useState<string>('Maikl@mail.ru');
@@ -44,6 +45,9 @@ export const LoginForm = React.memo(() => {
         return (
 
             <div className={style.loginBlock}>
+
+                {error && <div style={{color: 'red'}}>{error.toString()}</div> }
+
                 <div className={style.inputBlock}>
                     <Input onChange={enterEmail} value={email}/>
                 </div>
