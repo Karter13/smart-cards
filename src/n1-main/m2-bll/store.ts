@@ -3,13 +3,13 @@ import thunkMiddleware from 'redux-thunk';
 import {profileReduser} from './profile-reducer';
 import {loginReducer} from './login-reducer';
 import {newPasswordReducer} from './newPassword-reducer';
-import {registrationReduser} from './registration-reducer';
+import {registrationReducer} from '../../n2-faetures/f1-auth/a2-register/r2-bll/register-reducer';
 import {recoverPasswordReducer} from './recoverPassword-reducer';
 import {authReducer} from '../../n2-faetures/f1-auth/a1-login/l2-bll/auth-reducer';
 import {appReducer} from './app-reducer';
 
 const rootReducer = combineReducers({
-    registration: registrationReduser,
+    registration: registrationReducer,
     newPassword: newPasswordReducer,
     recoverPassword: recoverPasswordReducer,
     login: loginReducer,

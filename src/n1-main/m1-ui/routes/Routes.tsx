@@ -2,7 +2,7 @@ import React from 'react';
 import {Route} from 'react-router-dom';
 import {Profile} from '../profile/Profile';
 import {Login} from '../login/Login';
-import {Registration} from '../registration/Registration';
+import {Registration} from '../../../n2-faetures/f1-auth/a2-register/r1-ui/RegisterPage';
 import {RecoverPassword} from '../recoverPassword/RecoverPassword';
 import {NewPass} from '../newPassword/NewPass';
 
