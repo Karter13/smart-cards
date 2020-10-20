@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {authAPI, LoginParamsType, UserType} from '../l3-dal/cards-api';
+import {setAppStatusAC} from '../../../../n1-main/m2-bll/app-reducer';
 
 const SET_IS_LOGGED_IN = 'login/SET_IS_LOGGED_IN';
 const SET_USER = 'login/SET_USER';
@@ -45,19 +46,22 @@ export const setAppErrorAC = (error: string | null) =>
     ({type: SET_ERROR, error} as const);
 
 // thunks
-export const loginTc = (data: LoginParamsType) => (dispatch: Dispatch) => {
+export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'));
     authAPI.login(data)
         .then((res) => {
-            console.log(res.data);
             if (res.data) {
                 dispatch(setUserAC(res.data));
-                dispatch(setIsLoginInAC(true))
+                dispatch(setIsLoginInAC(true));
+                dispatch(setAppStatusAC('succeeded'));
             } else {
-                dispatch(setAppErrorAC('error'))
+                dispatch(setAppErrorAC('error'));
+                dispatch(setAppStatusAC('succeeded'));
             }
         })
         .catch((e) => {
             dispatch(setAppErrorAC(e.response ? (e.response.data.error) : (e.message + ', more details in the console')))
+            dispatch(setAppStatusAC('succeeded'));
         })
 };
 
