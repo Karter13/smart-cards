@@ -1,6 +1,9 @@
 .menu {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+}
+.button {
+    margin: 20px 100px 20px 20px;
 }
 .item a{
     font-size: 30px;

@@ -31,16 +31,24 @@ export const setAppIsInitializedAC = (isInitialized: boolean) => ({type: SET_IS_
 
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-    authAPI.me().then(res => {
-        if (res.data) {
-            debugger
-            dispatch(setUserAC(res.data));
-            dispatch(setIsLoginInAC(true));
-        } else {
-            dispatch(setIsLoginInAC(false));
-        }
-        dispatch(setAppIsInitializedAC(true))
-    })
+    dispatch(setAppStatusAC('loading'));
+    authAPI.me()
+        .then(res => {
+            if (res.data) {
+                dispatch(setUserAC(res.data));
+                dispatch(setIsLoginInAC(true));
+                dispatch(setAppStatusAC('succeeded'));
+            } else {
+                dispatch(setIsLoginInAC(false));
+                dispatch(setAppStatusAC('succeeded'));
+            }
+            dispatch(setAppIsInitializedAC(true))
+            dispatch(setAppStatusAC('succeeded'));
+        })
+        .catch(() => {
+            dispatch(setAppStatusAC('succeeded'));
+        })
+
 };
 
 

@@ -1,19 +1,27 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styles from './Header.module.css'
 import {NavLink} from 'react-router-dom';
 import {LOGIN, NEW_PASS, PROFILE, RECOVER_PASSWORD, REGISTRATION} from '../routes/Routes';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../m2-bll/store';
 import {Button} from '@material-ui/core';
+import { logoutTC } from '../../../n2-faetures/f1-auth/a1-login/l2-bll/auth-reducer';
 
 export const Header = () => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
     const dispatch = useDispatch();
+
+    const logoutHandler = useCallback(() => {
+        dispatch(logoutTC())
+    }, [isLoggedIn]);
+
     return (
         <div className={styles.nav}>
-            <div className={styles.menu} >
+            <div className={styles.menu}>
 
-                {isLoggedIn && <Button color="secondary" onClick={() => console.log('logout')}>Log out</Button>}
+                <div className={styles.button}>
+                    {isLoggedIn && <Button variant="contained" color="primary" onClick={logoutHandler}>Log out</Button>}
+                </div>
 
                 <div className={styles.item}>
                     <NavLink exact to={PROFILE} activeClassName={styles.activeLick}>Profile</NavLink>

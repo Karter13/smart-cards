@@ -10,12 +10,19 @@ export const authAPI = {
     login(data: LoginParamsType) {
         return instanse.post<UserType>('auth/login', data)
     },
+    logout() {
+        return instanse.delete<LogoutParamsType>('auth/me')
+    },
     me() {
         return instanse.post<UserType>('auth/me')
     }
 };
 
 // types for auth
+export type LogoutParamsType = {
+    info: string
+    error: string
+}
 export type LoginParamsType = {
     email: string
     password: string

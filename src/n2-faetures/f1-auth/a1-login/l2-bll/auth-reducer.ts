@@ -51,7 +51,6 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
     authAPI.login(data)
         .then((res) => {
             if (res.data) {
-                debugger
                 dispatch(setUserAC(res.data));
                 dispatch(setIsLoginInAC(true));
                 dispatch(setAppStatusAC('succeeded'));
@@ -63,6 +62,20 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
         .catch((e) => {
             dispatch(setAppErrorAC(e.response ? (e.response.data.error) : (e.message + ', more details in the console')))
             dispatch(setAppStatusAC('succeeded'));
+        })
+};
+
+export const logoutTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'));
+    authAPI.logout()
+        .then(res => {
+            if(res.data) {
+                dispatch(setIsLoginInAC(false));
+                dispatch(setAppStatusAC('succeeded'));
+            } else {
+                dispatch(setAppErrorAC('error'));
+                dispatch(setAppStatusAC('succeeded'));
+            }
         })
 };
 

@@ -4,12 +4,13 @@ import {Input} from '../common/Input/Input';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../m2-bll/store';
 import {Redirect} from 'react-router-dom';
-import {initializeAppTC} from '../../m2-bll/app-reducer';
+import {initializeAppTC, RequestStatusType} from '../../m2-bll/app-reducer';
 import {Preloader} from '../common/Preloader/Preloader';
+import styles from './Profile.module.css'
 
 export const Profile = React.memo(() => {
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
     let user = useSelector<AppRootStateType, any>(state => state.auth.user);
     const [value, setValue] = useState('demo input');
@@ -17,7 +18,7 @@ export const Profile = React.memo(() => {
 
     useEffect(() => {
         dispatch(initializeAppTC())
-    }, []);
+    }, [dispatch]);
 
     const onChange = useCallback((value: string) => {
         setValue(value)
@@ -27,7 +28,8 @@ export const Profile = React.memo(() => {
         setValue('demo input')
     }, [value]);
 
-    if (!isInitialized) {
+
+    if (status === 'loading') {
         return <div>
             <Preloader/>
         </div>
@@ -38,7 +40,7 @@ export const Profile = React.memo(() => {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <h1>Profile</h1>
             <div>name: {user.name}</div>
             <div>email: {user.email} </div>
