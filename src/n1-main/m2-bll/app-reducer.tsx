@@ -1,3 +1,7 @@
+import {Dispatch} from 'redux';
+import {authAPI} from '../../n2-faetures/f1-auth/a1-login/l3-dal/cards-api';
+import {setIsLoginInAC, setUserAC} from '../../n2-faetures/f1-auth/a1-login/l2-bll/auth-reducer';
+
 const SET_STATUS = 'APP/SET-STATUS';
 const SET_ERROR = 'APP/SET-ERROR';
 const SET_IS_INITIALIZED = 'APP/SET-IS-INITIALIZED';
@@ -26,15 +30,18 @@ export const setAppErrorAC = (error: string | null) => ({type: SET_ERROR, error}
 export const setAppIsInitializedAC = (isInitialized: boolean) => ({type: SET_IS_INITIALIZED, isInitialized} as const);
 
 
-// export const initializeAppTC = () => (dispatch: Dispatch) => {
-//     authAPI.me().then(res => {
-//         if (res.data.resultCode === 0) {
-//             dispatch(setIsLoggedInAC(true));
-//         } else {
-//         }
-//         dispatch(setAppIsInitializedAC(true))
-//     })
-// };
+export const initializeAppTC = () => (dispatch: Dispatch) => {
+    authAPI.me().then(res => {
+        if (res.data) {
+            debugger
+            dispatch(setUserAC(res.data));
+            dispatch(setIsLoginInAC(true));
+        } else {
+            dispatch(setIsLoginInAC(false));
+        }
+        dispatch(setAppIsInitializedAC(true))
+    })
+};
 
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

@@ -2,12 +2,16 @@ import axios from 'axios'
 import {BACK_URL} from '../../../../n0-config/config';
 
 const instanse = axios.create({
-    baseURL: BACK_URL
+    baseURL: BACK_URL,
+    withCredentials: true
 });
 
 export const authAPI = {
     login(data: LoginParamsType) {
         return instanse.post<UserType>('auth/login', data)
+    },
+    me() {
+        return instanse.post<UserType>('auth/me')
     }
 };
 

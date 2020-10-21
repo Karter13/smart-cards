@@ -8,17 +8,17 @@ const SET_ERROR = 'login/SET-ERROR';
 
 const initialState = {
     user: {
-        _id: '',
-        email: '',
-        name: '',
-        avatar: '',
-        publicCardPacksCount: 0, // количество колод
-        created: new Date(),
-        updated: new Date(),
-        isAdmin: false,
-        verified: false, // подтвердил ли почту
-        rememberMe: false,
-        error: '',
+        // _id: '',
+        // email: '',
+        // name: '',
+        // avatar: '',
+        // publicCardPacksCount: 0, // количество колод
+        // created: new Date(),
+        // updated: new Date(),
+        // isAdmin: false,
+        // verified: false, // подтвердил ли почту
+        // rememberMe: false,
+        // error: '',
     },
     isLoggedIn: false,
     error: null as string | null,
@@ -51,6 +51,7 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
     authAPI.login(data)
         .then((res) => {
             if (res.data) {
+                debugger
                 dispatch(setUserAC(res.data));
                 dispatch(setIsLoginInAC(true));
                 dispatch(setAppStatusAC('succeeded'));
