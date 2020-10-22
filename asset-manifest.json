@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/smart-cards/static/css/main.0d0bd5e3.chunk.css",
-    "main.js": "/smart-cards/static/js/main.dc35a7e3.chunk.js",
-    "main.js.map": "/smart-cards/static/js/main.dc35a7e3.chunk.js.map",
+    "main.js": "/smart-cards/static/js/main.8da75940.chunk.js",
+    "main.js.map": "/smart-cards/static/js/main.8da75940.chunk.js.map",
     "runtime-main.js": "/smart-cards/static/js/runtime-main.7dfa4a67.js",
     "runtime-main.js.map": "/smart-cards/static/js/runtime-main.7dfa4a67.js.map",
     "static/js/2.565f13d5.chunk.js": "/smart-cards/static/js/2.565f13d5.chunk.js",
     "static/js/2.565f13d5.chunk.js.map": "/smart-cards/static/js/2.565f13d5.chunk.js.map",
     "index.html": "/smart-cards/index.html",
-    "precache-manifest.1b5fcbe521eb5bf2eee6eb8c38c364a3.js": "/smart-cards/precache-manifest.1b5fcbe521eb5bf2eee6eb8c38c364a3.js",
+    "precache-manifest.5303a80b47bb5e2ac4959ba7327c034d.js": "/smart-cards/precache-manifest.5303a80b47bb5e2ac4959ba7327c034d.js",
     "service-worker.js": "/smart-cards/service-worker.js",
     "static/css/main.0d0bd5e3.chunk.css.map": "/smart-cards/static/css/main.0d0bd5e3.chunk.css.map",
     "static/js/2.565f13d5.chunk.js.LICENSE.txt": "/smart-cards/static/js/2.565f13d5.chunk.js.LICENSE.txt",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.7dfa4a67.js",
     "static/js/2.565f13d5.chunk.js",
     "static/css/main.0d0bd5e3.chunk.css",
-    "static/js/main.dc35a7e3.chunk.js"
+    "static/js/main.8da75940.chunk.js"
   ]
 }
