@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../m2-bll/store';
 import {Redirect} from 'react-router-dom';
-import {initializeAppTC} from '../../m2-bll/app-reducer';
+import {initializeAppTC, RequestStatusType} from '../../m2-bll/app-reducer';
 import {Preloader} from '../common/Preloader/Preloader';
 import styles from './Profile.module.css'
 
 export const Profile = React.memo(() => {
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status);
     let user = useSelector<AppRootStateType, any>(state => state.auth.user);
     const dispatch = useDispatch();
 
@@ -17,13 +17,13 @@ export const Profile = React.memo(() => {
         dispatch(initializeAppTC())
     }, [dispatch]);
 
-    if (!isInitialized && !isLoggedIn) {
+
+    if (status === 'idle' || status === 'loading') {
         return <div>
             <Preloader/>
         </div>
     }
-
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
         return <Redirect to={'/login'}/>
     }
 

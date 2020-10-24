@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import styles from './Header.module.css'
 import {NavLink} from 'react-router-dom';
-import {LOGIN, NEW_PASS, PROFILE, RECOVER_PASSWORD, REGISTRATION} from '../routes/Routes';
+import {CARDS, LOGIN, NEW_PASS, PACKS, PROFILE, RECOVER_PASSWORD, REGISTRATION} from '../routes/Routes';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../m2-bll/store';
 import {Button} from '@material-ui/core';
@@ -37,6 +37,12 @@ export const Header = () => {
                 </div>
                 <div className={styles.item}>
                     <NavLink to={NEW_PASS} activeClassName={styles.activeLick}>NewPass</NavLink>
+                </div>
+                <div className={styles.item}>
+                    <NavLink to={PACKS} activeClassName={styles.activeLick}>PacksPage</NavLink>
+                </div>
+                <div className={styles.item}>
+                    <NavLink to={CARDS} activeClassName={styles.activeLick}>CardsPage</NavLink>
                 </div>
             </div>
         </div>
