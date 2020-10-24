@@ -42,7 +42,7 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
                 dispatch(setIsLoginInAC(false));
                 dispatch(setAppStatusAC('succeeded'));
             }
-            dispatch(setAppIsInitializedAC(true))
+            dispatch(setAppIsInitializedAC( true))
             dispatch(setAppStatusAC('succeeded'));
         })
         .catch(() => {
