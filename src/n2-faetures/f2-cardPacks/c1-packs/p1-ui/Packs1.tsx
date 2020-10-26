@@ -2,6 +2,7 @@ import React from 'react';
 import MaterialTable from 'material-table';
 
 export const SimpleAction = () => {
+
     return (
         <MaterialTable
             title="CardPacs"
@@ -12,10 +13,10 @@ export const SimpleAction = () => {
                 {title: 'Url', field: 'url', type: 'numeric'},
             ]}
             data={[
-                {name: 'Maikl', cardsCount: 20, updated: '10-26T10:19', url: 'https://github.io/smart-cards'},
-                {name: 'Anna', cardsCount: 30, updated: '10-26T10:19', url: 'https://github.io/smart-cards'},
-                {name: 'Alex', cardsCount: 5, updated: '10-26T10:19', url: 'https://github.io/smart-cards'},
-                {name: 'Masha', cardsCount: 10, updated: '10-26T10:19', url: 'https://github.io/smart-cards'},
+                {name: 'Maikl', cardsCount: 20, updated: '10-10T10:19', url: 'https://github.io/smart-cards'},
+                {name: 'Anna', cardsCount: 30, updated: '10-15T10:19', url: 'https://github.io/smart-cards'},
+                {name: 'Alex', cardsCount: 5, updated: '10-20T10:19', url: 'https://github.io/smart-cards'},
+                {name: 'Masha', cardsCount: 10, updated: '10-25T10:19', url: 'https://github.io/smart-cards'},
             ]}
             actions={[
                 {
@@ -40,10 +41,10 @@ export const SimpleAction = () => {
                 headerStyle: {
                     backgroundColor: '#01579b',
                     color: '#FFF',
-                    width: '90%'
                 },
                 actionsColumnIndex: -1
             }}
+            style={{width: '80%', margin: '0 auto'}}
         />
     )
 }
