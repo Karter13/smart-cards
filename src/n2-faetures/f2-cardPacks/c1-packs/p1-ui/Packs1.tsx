@@ -13,7 +13,7 @@ export const SimpleAction = () => {
                     cellStyle: {
                         width: '10%'
                     },},
-                {title: 'CardsCount', field: 'cardsCount',
+                {title: 'CardsCount', field: 'cardsCount', type: 'numeric',
                     headerStyle: {
                         textAlign: 'center',
                         width: '30%'
@@ -22,7 +22,7 @@ export const SimpleAction = () => {
                         textAlign: 'center',
                         width: '20%'
                     },},
-                {title: 'Updated', field: 'updated', type: 'numeric',
+                {title: 'Updated', field: 'updated',
                     headerStyle: {
                         textAlign: 'center',
                         width: '30%'
@@ -50,19 +50,25 @@ export const SimpleAction = () => {
             ]}
             actions={[
                 {
+                    icon: 'add',
+                    tooltip: 'Add Pack',
+                    isFreeAction: true,
+                    onClick: (event) => alert("You want to add a new pack")
+                },
+                {
                     icon: 'delete',
-                    tooltip: 'Delete packs',
-                    onClick: (event) => alert('You want to delete ')
+                    tooltip: 'Delete pack',
+                    onClick: (event) => alert('You want to delete pack')
                 },
                 {
                     icon: 'update',
-                    tooltip: 'Update packs',
-                    onClick: (event) => alert('You want to delete ')
+                    tooltip: 'Update pack',
+                    onClick: (event) => alert('You want to update pack')
                 },
                 {
                     icon: 'forum',
                     tooltip: 'Cards',
-                    onClick: (event, rowData) => alert('You saved ')
+                    onClick: (event, rowData) => alert('Show cards')
                 },
 
 
