@@ -7,6 +7,7 @@ import {registrationReducer} from '../../n2-faetures/f1-auth/a2-register/r2-bll/
 import {recoverPasswordReducer} from '../../n2-faetures/f1-auth/a3-recovery/rec2-bll/recover-password-reducer';
 import {authReducer} from '../../n2-faetures/f1-auth/a1-login/l2-bll/auth-reducer';
 import {appReducer} from './app-reducer';
+import { packsReduser } from '../../n2-faetures/f2-cardPacks/c1-packs/p2-bll/packs-reducer';
 
 const rootReducer = combineReducers({
     registration: registrationReducer,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     login: loginReducer,
     profile: profileReduser,
     auth: authReducer,
-    app: appReducer
+    app: appReducer,
+    packs: packsReduser
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
