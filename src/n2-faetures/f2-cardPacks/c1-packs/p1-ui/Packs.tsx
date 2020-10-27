@@ -3,9 +3,8 @@ import MaterialTable from 'material-table';
 import {useDispatch, useSelector} from 'react-redux';
 import {PackType, requestPacksT} from '../p2-bll/packs-reducer';
 import {AppRootStateType} from '../../../../n1-main/m2-bll/store';
-import {Redirect} from 'react-router';
 import {CARDS} from '../../../../n1-main/m1-ui/routes/Routes';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 
 export const SimpleAction = () => {
@@ -98,13 +97,10 @@ export const SimpleAction = () => {
                 {
                     icon: 'forum',
                     tooltip: 'Cards',
-                    onClick: (event, data: PackType | Array<PackType>) =>{
+                    onClick: (event, data: PackType | Array<PackType>) => {
                         goToCards(data)
                     }
-
                 },
-
-
             ]}
             options={{
                 headerStyle: {
