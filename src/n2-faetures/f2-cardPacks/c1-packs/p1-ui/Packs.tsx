@@ -6,7 +6,6 @@ import {AppRootStateType} from '../../../../n1-main/m2-bll/store';
 import {CARDS} from '../../../../n1-main/m1-ui/routes/Routes';
 import {useHistory} from 'react-router-dom';
 
-
 export const SimpleAction = () => {
 
     const packs = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks);
@@ -36,7 +35,6 @@ export const SimpleAction = () => {
             dispatch(updatePackT({_id: pack._id, name: 'GOOD CARDS'}));
         }
     };
-
 
     return (
         <MaterialTable
