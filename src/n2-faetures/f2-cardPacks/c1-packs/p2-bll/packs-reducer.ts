@@ -4,6 +4,7 @@ import {packsAPI} from '../p3-dal/packs-api';
 const SET_PACKS = 'SET_PACKS';
 const ADD_PACK = 'ADD_PACK';
 const DELETE_PACK = 'DELETE_PACK';
+const UPDATE_PACK = 'UPDATE_PACK';
 
 const initialState: PacksInitialStateType = {
     cardPacks: [
@@ -155,6 +156,11 @@ export const packsReduser = (state: PacksInitialStateType = initialState, action
                 ...state, cardPacks: state.cardPacks.filter(p => p._id !== action.id)
             }
         }
+        case UPDATE_PACK: {
+            return {
+                ...state, cardPacks: state.cardPacks.map(pack => pack._id === action.id ? {...pack, name: action.name} : pack)
+            }
+        }
         default:
             return state
     }
@@ -164,6 +170,7 @@ export const packsReduser = (state: PacksInitialStateType = initialState, action
 export const setPacksAC = (packs: Array<PackType>) => ({type: SET_PACKS, packs} as const);
 export const addPackAC = (pack: PackType) => ({type: ADD_PACK, pack} as const);
 export const deletePackAC = (id: string) => ({type: DELETE_PACK, id} as const);
+export const updatePackAC = (id: string, name: string) => ({type: UPDATE_PACK, id, name} as const);
 
 // thunk
 export const requestPacksT = () => (dispatch: Dispatch) => {
@@ -182,6 +189,12 @@ export const deletePackT = (id: string) => (dispatch: Dispatch) => {
     packsAPI.deletePack(id)
         .then(() => {
             dispatch(deletePackAC(id))
+        })
+};
+export const updatePackT = (cardsPack: {_id: string, name: string}) => (dispatch: Dispatch) => {
+    packsAPI.updatePack(cardsPack)
+        .then(() => {
+            dispatch(updatePackAC(cardsPack._id, cardsPack.name))
         })
 };
 
@@ -203,7 +216,6 @@ export type PackType = {
     _id: string
     deckCover?: string | null,
 }
-
 export type CreatePackType = {
     newCardsPack: PackType,
     token: string
@@ -211,6 +223,11 @@ export type CreatePackType = {
 }
 export type DeletePackType = {
     deletedCardsPack: PackType,
+    token: string
+    tokenDeathTime: number
+}
+export type UpdatePackType = {
+    updatedCardsPack: PackType,
     token: string
     tokenDeathTime: number
 }
@@ -227,5 +244,6 @@ export type PacksInitialStateType = {
 type  ActionsType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof addPackAC>
     | ReturnType<typeof deletePackAC>
+    | ReturnType<typeof updatePackAC>
 
 

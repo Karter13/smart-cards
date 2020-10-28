@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {BACK_URL} from '../../../../n0-config/config';
-import {CreatePackType, DeletePackType, PacksInitialStateType, PackType} from '../p2-bll/packs-reducer';
+import {CreatePackType, DeletePackType, PacksInitialStateType, PackType, UpdatePackType} from '../p2-bll/packs-reducer';
 
 const instanse = axios.create({
     baseURL: BACK_URL,
@@ -14,22 +14,14 @@ export const packsAPI = {
     },
     createPack(cardsPack: {name: string}) {
         return instanse.post<CreatePackType>(`cards/pack`, {cardsPack})
-            .then(res => {
-                return res.data.newCardsPack
-            })
+            .then(res => res.data.newCardsPack)
     },
     deletePack(id:string) {
         return instanse.delete<DeletePackType>(`cards/pack?id=${id}`)
-            .then(res => {
-                return res.data.deletedCardsPack
-            })
+            .then(res => res.data.deletedCardsPack)
     },
-    updatePack(cardsPack: {id: string, name: string}) {
-        return instanse.put(`cards/pack`, cardsPack)
-            .then(res => {
-                debugger
-                console.log(res.data);
-                return res.data
-            })
+    updatePack(cardsPack: {_id: string, name: string}) {
+        return instanse.put<UpdatePackType>(`cards/pack`, {cardsPack})
+            .then(res => res.data)
     }
 };

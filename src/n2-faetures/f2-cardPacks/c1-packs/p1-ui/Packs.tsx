@@ -1,11 +1,10 @@
 import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import {useDispatch, useSelector} from 'react-redux';
-import {addPackT, deletePackT, PackType, requestPacksT} from '../p2-bll/packs-reducer';
+import {addPackT, deletePackT, PackType, requestPacksT, updatePackT} from '../p2-bll/packs-reducer';
 import {AppRootStateType} from '../../../../n1-main/m2-bll/store';
 import {CARDS} from '../../../../n1-main/m1-ui/routes/Routes';
 import {useHistory} from 'react-router-dom';
-import {packsAPI} from '../p3-dal/packs-api';
 
 
 export const SimpleAction = () => {
@@ -34,7 +33,7 @@ export const SimpleAction = () => {
 
     const updatePacks = (pack: PackType | Array<PackType>) => {
         if(!Array.isArray(pack)) {
-            console.log(pack._id)
+            dispatch(updatePackT({_id: pack._id, name: 'GOOD CARDS'}));
         }
     };
 
