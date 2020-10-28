@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import {useDispatch, useSelector} from 'react-redux';
-import {PackType, requestPacksT} from '../p2-bll/packs-reducer';
+import {addPackT, deletePackT, PackType, requestPacksT} from '../p2-bll/packs-reducer';
 import {AppRootStateType} from '../../../../n1-main/m2-bll/store';
 import {CARDS} from '../../../../n1-main/m1-ui/routes/Routes';
 import {useHistory} from 'react-router-dom';
@@ -19,6 +19,16 @@ export const SimpleAction = () => {
 
     const goToCards = (pack: PackType | Array<PackType>) => {
         !Array.isArray(pack) && history.push(CARDS + '/' + pack._id)
+    };
+
+    const addPack = () => {
+        dispatch(addPackT({name: 'NEW PACK'}))
+    };
+
+    const deletePack = (pack: PackType | Array<PackType>) => {
+        if(!Array.isArray(pack)) {
+            dispatch(deletePackT(pack._id))
+        }
     };
 
     return (
@@ -68,26 +78,20 @@ export const SimpleAction = () => {
                     },
                 },
             ]}
-            data={
-                packs
-                // [
-                //     {name: 'Maikl', cardsCount: 20, updated: '10-26T10:19', url: 'https://github.io/smart-cards'},
-                //     {name: 'Anna', cardsCount: 30, updated: '10-26T10:19', url: 'https://github.io/smart-cards'},
-                //     {name: 'Alex', cardsCount: 5, updated: '10-26T10:19', url: 'https://github.io/smart-cards'},
-                //     {name: 'Masha', cardsCount: 10, updated: '10-26T10:19', url: 'https://github.io/smart-cards'},
-                // ]
-            }
+            data={packs}
             actions={[
                 {
                     icon: 'add',
                     tooltip: 'Add Pack',
                     isFreeAction: true,
-                    onClick: (event) => alert('You want to add a new pack')
+                    onClick: (event) => addPack()
                 },
                 {
                     icon: 'delete',
                     tooltip: 'Delete pack',
-                    onClick: (event) => alert('You want to delete pack')
+                    onClick: (event, data: PackType | Array<PackType>) => {
+                        deletePack(data)
+                    }
                 },
                 {
                     icon: 'update',
@@ -107,6 +111,7 @@ export const SimpleAction = () => {
                     backgroundColor: '#01579b',
                     color: '#FFF',
                 },
+
                 actionsColumnIndex: -1
             }}
             style={{

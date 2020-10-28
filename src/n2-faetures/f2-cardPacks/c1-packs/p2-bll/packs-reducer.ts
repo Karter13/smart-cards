@@ -2,6 +2,9 @@ import {Dispatch} from 'redux';
 import {packsAPI} from '../p3-dal/packs-api';
 
 const SET_PACKS = 'SET_PACKS';
+const ADD_PACK = 'ADD_PACK';
+const DELETE_PACK = 'DELETE_PACK';
+
 const initialState: PacksInitialStateType = {
     cardPacks: [
         {
@@ -142,6 +145,16 @@ export const packsReduser = (state: PacksInitialStateType = initialState, action
                 ...state, cardPacks: [...action.packs]
             }
         }
+        case ADD_PACK: {
+            return {
+                ...state, cardPacks: [action.pack, ...state.cardPacks]
+            }
+        }
+        case DELETE_PACK: {
+            return {
+                ...state, cardPacks: state.cardPacks.filter(p => p._id !== action.id)
+            }
+        }
         default:
             return state
     }
@@ -149,6 +162,8 @@ export const packsReduser = (state: PacksInitialStateType = initialState, action
 
 //actionsCreators
 export const setPacksAC = (packs: Array<PackType>) => ({type: SET_PACKS, packs} as const);
+export const addPackAC = (pack: PackType) => ({type: ADD_PACK, pack} as const);
+export const deletePackAC = (id: string) => ({type: DELETE_PACK, id} as const);
 
 // thunk
 export const requestPacksT = () => (dispatch: Dispatch) => {
@@ -157,7 +172,18 @@ export const requestPacksT = () => (dispatch: Dispatch) => {
             dispatch(setPacksAC(data))
         })
 };
-
+export const addPackT = (cardsPack: { name: string }) => (dispatch: Dispatch) => {
+    packsAPI.createPack(cardsPack)
+        .then(data => {
+            dispatch(addPackAC(data))
+        })
+};
+export const deletePackT = (id: string) => (dispatch: Dispatch) => {
+    packsAPI.deletePack(id)
+        .then(() => {
+            dispatch(deletePackAC(id))
+        })
+};
 
 export type PackType = {
     cardsCount: number
@@ -177,6 +203,17 @@ export type PackType = {
     _id: string
     deckCover?: string | null,
 }
+
+export type CreatePackType = {
+    newCardsPack: PackType,
+    token: string
+    tokenDeathTime: number
+}
+export type DeletePackType = {
+    deletedCardsPack: PackType,
+    token: string
+    tokenDeathTime: number
+}
 export type PacksInitialStateType = {
     cardPacks: Array<PackType>
     cardPacksTotalCount: number
@@ -188,4 +225,7 @@ export type PacksInitialStateType = {
     tokenDeathTime: number
 }
 type  ActionsType = ReturnType<typeof setPacksAC>
+    | ReturnType<typeof addPackAC>
+    | ReturnType<typeof deletePackAC>
+
 
