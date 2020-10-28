@@ -18,9 +18,8 @@ const rootReducer = combineReducers({
     profile: profileReduser,
     auth: authReducer,
     app: appReducer,
-    packs: packsReduser
-    app: appReducer,
     cards: cardsReducer,
+    packs: packsReduser
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
