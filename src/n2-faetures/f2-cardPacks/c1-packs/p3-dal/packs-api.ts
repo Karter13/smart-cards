@@ -23,5 +23,13 @@ export const packsAPI = {
             .then(res => {
                 return res.data.deletedCardsPack
             })
+    },
+    updatePack(cardsPack: {id: string, name: string}) {
+        return instanse.put(`cards/pack`, cardsPack)
+            .then(res => {
+                debugger
+                console.log(res.data);
+                return res.data
+            })
     }
 };

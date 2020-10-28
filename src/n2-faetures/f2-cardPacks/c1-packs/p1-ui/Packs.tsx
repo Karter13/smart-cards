@@ -5,6 +5,7 @@ import {addPackT, deletePackT, PackType, requestPacksT} from '../p2-bll/packs-re
 import {AppRootStateType} from '../../../../n1-main/m2-bll/store';
 import {CARDS} from '../../../../n1-main/m1-ui/routes/Routes';
 import {useHistory} from 'react-router-dom';
+import {packsAPI} from '../p3-dal/packs-api';
 
 
 export const SimpleAction = () => {
@@ -14,7 +15,7 @@ export const SimpleAction = () => {
     const history = useHistory();
 
     useEffect(() => {
-        dispatch(requestPacksT())
+        dispatch(requestPacksT());
     }, [dispatch]);
 
     const goToCards = (pack: PackType | Array<PackType>) => {
@@ -30,6 +31,13 @@ export const SimpleAction = () => {
             dispatch(deletePackT(pack._id))
         }
     };
+
+    const updatePacks = (pack: PackType | Array<PackType>) => {
+        if(!Array.isArray(pack)) {
+            console.log(pack._id)
+        }
+    };
+
 
     return (
         <MaterialTable
@@ -96,7 +104,9 @@ export const SimpleAction = () => {
                 {
                     icon: 'update',
                     tooltip: 'Update pack',
-                    onClick: (event) => alert('You want to update pack')
+                    onClick: (event, data: PackType | Array<PackType>) => {
+                        updatePacks(data)
+                    }
                 },
                 {
                     icon: 'forum',
