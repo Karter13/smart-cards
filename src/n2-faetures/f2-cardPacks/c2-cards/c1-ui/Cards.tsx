@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import styles from './Cards.module.css';
 
 import {AppRootStateType} from "../../../../n1-main/m2-bll/store";
-import {addCardTC, CardType, setCardsPackIdTC, setCardsTC, updateCardTC} from "../c2-bll/cards-reduser";
+import {addCardTC, CardType, deleteCardTC, setCardsPackIdTC, setCardsTC, updateCardTC} from "../c2-bll/cards-reduser";
 
 type DisplayCardType = {
     _id: string;
@@ -20,26 +20,14 @@ type DisplayCardType = {
 export const CardsTable = () => {
     const {buttonContainer} = styles;
 
-    const cards = useSelector<AppRootStateType, Array<CardType> | null>(state => state.cards.cards);
+    const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.cards.cards);
     const cardsPack_id = useSelector<AppRootStateType, string>(state => state.cards.cardsPack_id);
     const dispatch = useDispatch();
 
-    // const {cardsPackIdParams} = useParams();
-    const cardsPackIdParams = '5f952ae3d231ec20d83d9ccb';
+    const {location} = useHistory();
+    const cardsPackIdParams = location.pathname.substring(7);
+
     dispatch(setCardsPackIdTC(cardsPackIdParams));
-
-    useEffect(() => {
-        dispatch(setCardsTC(cardsPack_id, undefined,
-            undefined, undefined, undefined, undefined, undefined, undefined, 20));
-    }, [dispatch]);
-
-    const onCardUpdate = (card: DisplayCardType | Array<DisplayCardType>): void => {
-        !Array.isArray(card) && dispatch(updateCardTC(card._id, `updated ${card.question}`, `updated ${card.answer}`, card.grade))
-    }
-
-    const onCardDelete = (card: DisplayCardType | Array<DisplayCardType>): void => {
-        !Array.isArray(card) && dispatch(updateCardTC(card._id))
-    }
 
     const onCardAdd = (cardsPack_id: string, question?: string, answer?: string, grade?: number,
                        shots?: number, rating?: number, answerImg?: string, questionImg?: string,
@@ -48,7 +36,25 @@ export const CardsTable = () => {
             questionVideo, answerVideo, type))
     }
 
-    // @ts-ignore
+
+    useEffect(() => {
+        if (cardsPack_id) {
+            dispatch(setCardsTC(cardsPack_id, undefined,
+                undefined, undefined, undefined, undefined, undefined, undefined, 20))
+        }
+    }, [dispatch]);
+
+
+    const onCardUpdate = (card: DisplayCardType | Array<DisplayCardType>): void => {
+        !Array.isArray(card) && dispatch(updateCardTC(card._id, `updated ${card.question}`, `updated ${card.answer}`, card.grade))
+    }
+
+    const onCardDelete = (card: DisplayCardType | Array<DisplayCardType>): void => {
+        !Array.isArray(card) && dispatch(deleteCardTC(card._id))
+    }
+
+
+
     const cardsForDisplay: Array<DisplayCardType> = cards.map(({_id, question, answer, grade, updated}) => ({
         _id, question,
         answer, grade, updated, url: '',
@@ -63,7 +69,6 @@ export const CardsTable = () => {
             <MaterialTable
                 title="Cards"
                 columns={[
-                    {title: 'id', field: "id", type: "string"},
                     {title: 'Question', field: 'question', type: "string"},
                     {title: 'Answer', field: 'answer'},
                     {title: 'Grade', field: 'grade', type: "numeric"},

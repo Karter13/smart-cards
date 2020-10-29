@@ -11,7 +11,7 @@ const SET_ERROR: 'SET_ERROR' = 'SET_ERROR';
 const SET_FETCHING: 'SET_FETCHING' = 'SET_FETCHING';
 
 export type CardType = {
-    id: string;
+    _id: string;
     cardsPack_id: string;
     user_id: string;
     answer: string;
@@ -58,7 +58,7 @@ const initialState = {
     isFetching: false,
     cardsPack_id: '',
     cards: [{
-        id: '',
+        _id: '',
         cardsPack_id: '',
         user_id: '',
         answer: '',
@@ -152,13 +152,15 @@ export const setCardsTC = (cardsPack_id: string, cardAnswer?: string, cardQuesti
 export const addCardTC = (cardsPack_id: string, question?: string, answer?: string, grade?: number,
                           shots?: number, rating?: number, answerImg?: string, questionImg?: string,
                           questionVideo?: string, answerVideo?: string, type?: string
-) => (dispatch: any) => {
+) => (dispatch: any, getState: any) => {
     dispatch(setFetchingAC(true));
     CardsApi.addCard(cardsPack_id, question, answer, grade,
         shots, rating, answerImg, questionImg,
         questionVideo, answerVideo, type)
         .then(res => {
-            dispatch(setCardsTC(cardsPack_id));
+            dispatch(setCardsTC(getState().cards.cardsPack_id, undefined, undefined,
+                undefined, undefined, undefined, undefined, undefined,
+                20));
             dispatch(setFetchingAC(false));
 
         }).catch(err => {
@@ -167,11 +169,13 @@ export const addCardTC = (cardsPack_id: string, question?: string, answer?: stri
     });
 }
 
-export const deleteCardTC = (id: string) => (dispatch: any, getState: () => InitialStateType) => {
+export const deleteCardTC = (id: string) => (dispatch: any, getState: any) => {
     dispatch(setFetchingAC(true));
     CardsApi.deleteCard(id)
         .then(res => {
-            dispatch(setCardsTC(getState().cardsPack_id));
+            dispatch(setCardsTC(getState().cards.cardsPack_id, undefined, undefined,
+                undefined, undefined, undefined, undefined, undefined,
+                20));
             dispatch(setFetchingAC(false));
 
         }).catch(err => {
@@ -183,13 +187,13 @@ export const deleteCardTC = (id: string) => (dispatch: any, getState: () => Init
 export const updateCardTC = (id: string, question?: string, answer?: string, grade?: number,
                              shots?: number, rating?: number, answerImg?: string, questionImg?: string,
                              questionVideo?: string, answerVideo?: string, type?: string, comments?: string
-) => (dispatch: any, getState: () => InitialStateType) => {
+) => (dispatch: any, getState: any) => {
     dispatch(setFetchingAC(true));
     CardsApi.updateCard(id, question, answer, grade,
         shots, rating, answerImg, questionImg,
         questionVideo, answerVideo, type, comments)
         .then(res => {
-            dispatch(setCardsTC(getState().cardsPack_id));
+            dispatch(setCardsTC(getState().cards.cardsPack_id));
             dispatch(setFetchingAC(false));
 
         }).catch(err => {
