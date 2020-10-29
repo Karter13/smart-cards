@@ -177,7 +177,7 @@ export const requestPacksT = () => (dispatch: Dispatch) => {
     packsAPI.getPacks()
         .then(data => {
             dispatch(setPacksAC(data))
-        })
+        }).catch(() => console.log('error'))
 };
 export const addPackT = (cardsPack: { name: string }) => (dispatch: Dispatch) => {
     packsAPI.createPack(cardsPack)
@@ -189,13 +189,13 @@ export const deletePackT = (id: string) => (dispatch: Dispatch) => {
     packsAPI.deletePack(id)
         .then(() => {
             dispatch(deletePackAC(id))
-        })
+        }).catch(() => console.log('delete error'))
 };
 export const updatePackT = (cardsPack: {_id: string, name: string}) => (dispatch: Dispatch) => {
     packsAPI.updatePack(cardsPack)
         .then(() => {
             dispatch(updatePackAC(cardsPack._id, cardsPack.name))
-        })
+        }).catch(() => console.log('update error'))
 };
 
 export type PackType = {
