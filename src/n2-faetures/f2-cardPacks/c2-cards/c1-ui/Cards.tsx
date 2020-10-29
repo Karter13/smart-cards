@@ -62,10 +62,6 @@ export const CardsTable = () => {
 
     return (
         <>
-            <div className={buttonContainer}>
-                <button type={'button'} onClick={() => onCardAdd(cardsPack_id)}> add card</button>
-            </div>
-
             <MaterialTable
                 title="Cards"
                 columns={[
@@ -77,6 +73,12 @@ export const CardsTable = () => {
                 ]}
                 data={cardsForDisplay}
                 actions={[
+                    {
+                        icon: 'add',
+                        tooltip: 'Add Card',
+                        isFreeAction: true,
+                        onClick: (event) => onCardAdd(cardsPack_id)
+                    },
                     {
                         icon: 'delete',
                         tooltip: 'Delete packs',
