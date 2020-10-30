@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {BACK_URL} from '../../../../n0-config/config';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
+    baseURL: BACK_URL,
     withCredentials: true,
 })
 
