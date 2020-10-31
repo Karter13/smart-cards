@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosRequestConfig} from 'axios';
 import {BACK_URL} from '../../../../n0-config/config';
 import {CreatePackType, DeletePackType, PacksInitialStateType, PackType, UpdatePackType} from '../p2-bll/packs-reducer';
 
@@ -7,9 +7,11 @@ const instanse = axios.create({
     withCredentials: true
 });
 
+// const x: AxiosRequestConfig
+
 export const packsAPI = {
-    getPacks(pageCount: number = 50) {
-        return instanse.get<PacksInitialStateType>(`cards/pack?pageCount=${pageCount}`)
+    getPacks(pageCount: number = 1000) {
+        return instanse.get<PacksInitialStateType>(`cards/pack?pageCount=${pageCount}`, {params: {x: 1}})
             .then(res => res.data.cardPacks)
     },
     createPack(cardsPack: {name: string}) {
