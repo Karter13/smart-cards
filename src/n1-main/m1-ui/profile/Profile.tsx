@@ -14,7 +14,9 @@ export const Profile = React.memo(() => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(initializeAppTC())
+        if(!user._id || !isLoggedIn) {
+            dispatch(initializeAppTC())
+        }
     }, [dispatch]);
 
 

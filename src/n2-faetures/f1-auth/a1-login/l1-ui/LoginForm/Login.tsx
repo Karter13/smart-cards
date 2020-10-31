@@ -22,7 +22,7 @@ export const Login = () => {
     const error = useSelector<AppRootStateType, string | null>(state => state.auth.error);
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
-    const dispatch = useDispatch();
+     const dispatch = useDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -45,7 +45,7 @@ export const Login = () => {
             return errors;
         },
         onSubmit: values => {
-            dispatch(loginTC(values));
+                dispatch(loginTC(values));
         },
     });
 

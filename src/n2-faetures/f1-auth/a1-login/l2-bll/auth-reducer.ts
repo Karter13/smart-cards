@@ -7,19 +7,7 @@ const SET_USER = 'login/SET_USER';
 const SET_ERROR = 'login/SET-ERROR';
 
 const initialState = {
-    user: {
-        // _id: '',
-        // email: '',
-        // name: '',
-        // avatar: '',
-        // publicCardPacksCount: 0, // количество колод
-        // created: new Date(),
-        // updated: new Date(),
-        // isAdmin: false,
-        // verified: false, // подтвердил ли почту
-        // rememberMe: false,
-        // error: '',
-    },
+    user: {},
     isLoggedIn: false,
     error: null as string | null,
 };
@@ -60,7 +48,7 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
             }
         })
         .catch((e) => {
-            dispatch(setAppErrorAC(e.response ? (e.response.data.error) : (e.message + ', more details in the console')))
+            dispatch(setAppErrorAC(e.response ? (e.response.data.error) : (e.message + ', more details in the console')));
             dispatch(setAppStatusAC('succeeded'));
         })
 };
@@ -69,7 +57,7 @@ export const logoutTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'));
     authAPI.logout()
         .then(res => {
-            if(res.data) {
+            if (res.data) {
                 dispatch(setIsLoginInAC(false));
                 dispatch(setAppStatusAC('succeeded'));
             } else {
