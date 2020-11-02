@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '../../../../../n1-main/m1-ui/common/Button/Button';
+import styles from './FrontPartCard.module.css'
 
 export const FrontPartCard = () => {
 
@@ -9,7 +10,7 @@ export const FrontPartCard = () => {
 
 
     return (
-        <div>
+        <div className={styles.frontCardBody}>
             <h3>Question</h3>
             <div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam asperiores aut blanditiis
