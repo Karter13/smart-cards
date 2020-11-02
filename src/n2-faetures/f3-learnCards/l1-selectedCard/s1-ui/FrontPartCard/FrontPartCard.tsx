@@ -2,6 +2,12 @@ import React from 'react'
 import { Button } from '../../../../../n1-main/m1-ui/common/Button/Button';
 
 export const FrontPartCard = () => {
+
+    const onCheck = () => {
+
+    };
+
+
     return (
         <div>
             <h3>Question</h3>
@@ -12,7 +18,7 @@ export const FrontPartCard = () => {
                     maxime nobis perspiciatis quaerat quia quidem sapiente sed sit? Distinctio itaque pariatur
                     porro!</p>
             </div>
-            <Button value={'проверить'} click={() => {console.log('click')}}/>
+            <Button value={'проверить'} click={onCheck}/>
         </div>
     )
 };
