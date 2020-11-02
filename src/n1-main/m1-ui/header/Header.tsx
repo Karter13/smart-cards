@@ -1,11 +1,11 @@
 import React, {useCallback} from 'react';
 import styles from './Header.module.css'
 import {NavLink} from 'react-router-dom';
-import {CARDS, LOGIN, NEW_PASS, PACKS, PROFILE, RECOVER_PASSWORD, REGISTRATION} from '../routes/Routes';
+import {CARDS, LEARN, LOGIN, NEW_PASS, PACKS, PROFILE, RECOVER_PASSWORD, REGISTRATION} from '../routes/Routes';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../m2-bll/store';
 import {Button} from '@material-ui/core';
-import { logoutTC } from '../../../n2-faetures/f1-auth/a1-login/l2-bll/auth-reducer';
+import {logoutTC} from '../../../n2-faetures/f1-auth/a1-login/l2-bll/auth-reducer';
 
 export const Header = () => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
@@ -43,6 +43,9 @@ export const Header = () => {
                 </div>
                 <div className={styles.item}>
                     <NavLink to={CARDS} activeClassName={styles.activeLick}>CardsPage</NavLink>
+                </div>
+                <div className={styles.item}>
+                    <NavLink to={LEARN} activeClassName={styles.activeLick}>LearnPage</NavLink>
                 </div>
             </div>
         </div>

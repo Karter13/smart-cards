@@ -7,6 +7,7 @@ import {RecoverPasswordPage} from '../../../n2-faetures/f1-auth/a3-recovery/rec1
 import {NewPass} from '../newPassword/NewPass';
 import {PacksPage} from '../Packs/PacksPage';
 import {CardsPage} from '../CardsPage/CardsPage';
+import {LearnPage} from '../learnPage/LearnPage';
 
 export const PROFILE = '/';
 export const LOGIN = '/login';
@@ -15,6 +16,7 @@ export const RECOVER_PASSWORD = '/recoverPassword';
 export const NEW_PASS = '/newPass';
 export const PACKS = '/packs';
 export const CARDS = '/cards';
+export const LEARN = '/learn';
 
 
 
@@ -28,6 +30,7 @@ export const Routes = () => {
             <Route path={NEW_PASS} render={() => <NewPass/>}/>
             <Route path={PACKS} render={() => <PacksPage/>}/>
             <Route path={CARDS} render={() => <CardsPage/>}/>
+            <Route path={LEARN} render={() => <LearnPage/>}/>
         </div>
     )
 };
