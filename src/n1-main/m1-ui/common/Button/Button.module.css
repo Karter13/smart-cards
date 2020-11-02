@@ -2,7 +2,7 @@ button.button {
     margin: 20px;
     position: relative;
     display: inline-block;
-    width: 5em;
+    min-width: 4em;
     height: 2em;
     line-height: 1.6em;
     vertical-align: middle;
@@ -20,6 +20,7 @@ button.button {
             0 1px rgba(255,255,255,.5) inset;
 }
 button.button:hover {
+    cursor: pointer;
     background: linear-gradient(#d2dfea, #71828c);
 }
 button.button:active {

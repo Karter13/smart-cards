@@ -14,6 +14,7 @@ export const Button: React.FC<ButtonPropsType> = React.memo((props) => {
         <>
             <button className={props.red === 'delete' ? `${style.button} ${style.type}` : style.button}
                     onClick={props.click}
+                    disabled ={false}
             >{props.value}</button>
         </>
     )
