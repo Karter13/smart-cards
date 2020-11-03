@@ -11,7 +11,7 @@ type PacksTablePropsType = {
     showLearnCard: (pack: PackType | Array<PackType>) => void
 }
 
-export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, deletePack, goToCards, updatePacks, showLearnCard}) => {
+export const PacksTable: React.FC<PacksTablePropsType> = React.memo(({packs, addPack, deletePack, goToCards, updatePacks, showLearnCard}) => {
 
     return (
         <MaterialTable
@@ -110,4 +110,4 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, delet
             }}
         />
     )
-};
+});

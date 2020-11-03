@@ -1,12 +1,12 @@
 import React from 'react'
 import stales from './LearnPage.module.css'
-import {SelectedCardComponent} from '../../../n2-faetures/f3-learnCards/l1-selectedCard/s1-ui/SelectedCardComponent';
+import { SelectedCardContainer } from '../../../n2-faetures/f3-learnCards/l1-selectedCard/s1-ui/SelectedCardContainer'
 
-export const LearnPage = () => {
+export const LearnPage = React.memo(() => {
     return (
         <div className={stales.cardBody}>
             LearnPage
-            <SelectedCardComponent/>
+            <SelectedCardContainer/>
         </div>
     )
-}
+});

@@ -5,7 +5,7 @@ type BackPartCardPropsType = {
     onNext: () => void
 }
 
-export const BackPartCard: React.FC<BackPartCardPropsType> = ({onNext}) => {
+export const BackPartCard: React.FC<BackPartCardPropsType> = React.memo(({onNext}) => {
     return (
         <div>
             <h3>Answer</h3>
@@ -34,4 +34,4 @@ export const BackPartCard: React.FC<BackPartCardPropsType> = ({onNext}) => {
             <Button value={'следующая карта'} click={onNext}/>
         </div>
     )
-};
+});

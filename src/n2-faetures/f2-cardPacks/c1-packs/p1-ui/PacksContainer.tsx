@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addPackT, deletePackT, PackType, requestPacksT, updatePackT} from '../p2-bll/packs-reducer';
 import {AppRootStateType} from '../../../../n1-main/m2-bll/store';
@@ -7,7 +7,7 @@ import {useHistory} from 'react-router-dom';
 import {PacksTable} from './PacksTable';
 import {Checkbox} from '../../../../n1-main/m1-ui/common/Checkbox/Checkbox';
 
-export const PacksContainer = () => {
+export const PacksContainer = React.memo(() => {
 
     const packs = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks);
     const dispatch = useDispatch();
@@ -18,30 +18,29 @@ export const PacksContainer = () => {
     }, [dispatch]);
 
 
-    const showLearnCard = (pack: PackType | Array<PackType>) => {
+    const showLearnCard = useCallback((pack: PackType | Array<PackType>) => {
         !Array.isArray(pack) && history.push(LEARN + '/' + pack._id)
+    }, []);
 
-    };
-
-    const goToCards = (pack: PackType | Array<PackType>) => {
+    const goToCards = useCallback((pack: PackType | Array<PackType>) => {
         !Array.isArray(pack) && history.push(CARDS + '/' + pack._id)
-    };
+    }, []);
 
-    const addPack = () => {
+    const addPack = useCallback(() => {
         dispatch(addPackT({name: 'NEW PACK'}))
-    };
+    }, []);
 
-    const deletePack = (pack: PackType | Array<PackType>) => {
+    const deletePack = useCallback((pack: PackType | Array<PackType>) => {
         if (!Array.isArray(pack)) {
             dispatch(deletePackT(pack._id))
         }
-    };
+    }, []);
 
-    const updatePacks = (pack: PackType | Array<PackType>) => {
+    const updatePacks = useCallback((pack: PackType | Array<PackType>) => {
         if (!Array.isArray(pack)) {
             dispatch(updatePackT({_id: pack._id, name: 'GOOD CARDS'}));
         }
-    };
+    }, []);
 
     return (
         <div>
@@ -56,4 +55,4 @@ export const PacksContainer = () => {
             />
         </div>
     )
-};
+});

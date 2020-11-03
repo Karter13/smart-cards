@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import stales from './SelectedCardComponent.module.css'
+import React, {useCallback, useState} from 'react'
+import stales from './SelectedCardContainer.module.css'
 import {FrontPartCard} from './FrontPartCard/FrontPartCard';
 import {BackPartCard} from './BackPartCard/BackPartCard';
 
@@ -33,16 +33,16 @@ const getCard = (cards: CardType[]) => {
     return cards[res.id + 1];
 };
 
-export const SelectedCardComponent = () => {
+export const SelectedCardContainer = React.memo(() => {
 
     let [isChecked, setIsChecked] = useState(false);
 
-    const onCheck = () => {
+    const onCheck = useCallback(() => {
         setIsChecked(true)
-    };
-    const onNext = () => {
+    }, []);
+    const onNext = useCallback(() => {
         setIsChecked(false)
-    };
+    }, []);
 
     return (
         <div className={stales.cardBody}>
@@ -59,4 +59,4 @@ export const SelectedCardComponent = () => {
 
         </div>
     )
-}
+});

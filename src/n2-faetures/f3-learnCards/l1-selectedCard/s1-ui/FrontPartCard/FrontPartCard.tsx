@@ -6,7 +6,7 @@ type FrontPartCardPropsType = {
     onCheck: () => void
 }
 
-export const FrontPartCard: React.FC<FrontPartCardPropsType> = ({onCheck}) => {
+export const FrontPartCard: React.FC<FrontPartCardPropsType> = React.memo(({onCheck}) => {
 
     return (
         <div className={styles.frontCardBody}>
@@ -21,4 +21,4 @@ export const FrontPartCard: React.FC<FrontPartCardPropsType> = ({onCheck}) => {
             <Button value={'проверить'} click={onCheck}/>
         </div>
     )
-};
+});

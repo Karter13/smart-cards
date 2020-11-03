@@ -17,7 +17,7 @@ type FormikErrorType = {
     rememberMe?: boolean
 }
 
-export const Login = () => {
+export const Login = React.memo(() => {
 
     const error = useSelector<AppRootStateType, string | null>(state => state.auth.error);
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status);
@@ -94,4 +94,4 @@ export const Login = () => {
             </div>
         </Grid>
     </Grid>
-};
+});
