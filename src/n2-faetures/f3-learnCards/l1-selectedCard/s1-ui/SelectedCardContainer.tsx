@@ -3,7 +3,7 @@ import stales from './SelectedCardContainer.module.css'
 import {FrontPartCard} from './FrontPartCard/FrontPartCard';
 import {BackPartCard} from './BackPartCard/BackPartCard';
 
-const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал'];
+
 export type CardType = {
     _id: string;
     cardsPack_id: string;

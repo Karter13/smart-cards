@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button} from '../../../../../n1-main/m1-ui/common/Button/Button';
 
+const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал'];
 type BackPartCardPropsType = {
     onNext: () => void
 }
@@ -15,21 +16,25 @@ export const BackPartCard: React.FC<BackPartCardPropsType> = React.memo(({onNext
                     mollitia officia recusandae repellat reprehenderit sed.</p>
             </div>
             <div>
-                <Button value={'не знал'} click={() => {
-                    console.log('click')
-                }}/>
-                <Button value={'забыл'} click={() => {
-                    console.log('click')
-                }}/>
-                <Button value={'долго думал'} click={() => {
-                    console.log('click')
-                }}/>
-                <Button value={'перепутал'} click={() => {
-                    console.log('click')
-                }}/>
-                <Button value={'знал'} click={() => {
-                    console.log('click')
-                }}/>
+                {grades.map((value, index) => (<Button key={'value-' + index} value={value} click={() => {
+                        console.log('click')
+                    }}/>
+                ))}
+                {/*<Button value={'не знал'} click={() => {*/}
+                {/*    console.log('click')*/}
+                {/*}}/>*/}
+                {/*<Button value={'забыл'} click={() => {*/}
+                {/*    console.log('click')*/}
+                {/*}}/>*/}
+                {/*<Button value={'долго думал'} click={() => {*/}
+                {/*    console.log('click')*/}
+                {/*}}/>*/}
+                {/*<Button value={'перепутал'} click={() => {*/}
+                {/*    console.log('click')*/}
+                {/*}}/>*/}
+                {/*<Button value={'знал'} click={() => {*/}
+                {/*    console.log('click')*/}
+                {/*}}/>*/}
             </div>
             <Button value={'следующая карта'} click={onNext}/>
         </div>
