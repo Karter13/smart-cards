@@ -2,12 +2,11 @@ import React from 'react'
 import { Button } from '../../../../../n1-main/m1-ui/common/Button/Button';
 import styles from './FrontPartCard.module.css'
 
-export const FrontPartCard = () => {
+type FrontPartCardPropsType = {
+    onCheck: () => void
+}
 
-    const onCheck = () => {
-
-    };
-
+export const FrontPartCard: React.FC<FrontPartCardPropsType> = ({onCheck}) => {
 
     return (
         <div className={styles.frontCardBody}>

@@ -1,7 +1,11 @@
 import React from 'react'
 import {Button} from '../../../../../n1-main/m1-ui/common/Button/Button';
 
-export const BackPartCard = () => {
+type BackPartCardPropsType = {
+    onNext: () => void
+}
+
+export const BackPartCard: React.FC<BackPartCardPropsType> = ({onNext}) => {
     return (
         <div>
             <h3>Answer</h3>
@@ -27,9 +31,7 @@ export const BackPartCard = () => {
                     console.log('click')
                 }}/>
             </div>
-            <Button value={'следующая карта'} click={() => {
-                console.log('click')
-            }}/>
+            <Button value={'следующая карта'} click={onNext}/>
         </div>
     )
 };

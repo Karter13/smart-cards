@@ -13,10 +13,9 @@ type PacksTablePropsType = {
 
 export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, deletePack, goToCards, updatePacks, showLearnCard}) => {
 
-
     return (
         <MaterialTable
-            title="CardPacs"
+            title="CardPacks"
             columns={[
                 {
                     title: 'Name', field: 'name',
@@ -103,7 +102,6 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, delet
                     backgroundColor: '#01579b',
                     color: '#FFF',
                 },
-
                 actionsColumnIndex: -1
             }}
             style={{
