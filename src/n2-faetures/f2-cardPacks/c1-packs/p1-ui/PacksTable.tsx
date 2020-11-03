@@ -8,9 +8,10 @@ type PacksTablePropsType = {
     deletePack: (pack: PackType | Array<PackType>) => void
     updatePacks: (pack: PackType | Array<PackType>) => void
     goToCards: (pack: PackType | Array<PackType>) => void
+    showLearnCard: (pack: PackType | Array<PackType>) => void
 }
 
-export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, deletePack, goToCards, updatePacks}) => {
+export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, deletePack, goToCards, updatePacks, showLearnCard}) => {
 
 
     return (
@@ -63,20 +64,20 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, delet
             data={packs}
             actions={[
                 {
+                    icon: 'storage',
+                    tooltip: 'Learn Card',
+                    onClick: (event, data: PackType | Array<PackType>) => {
+                        showLearnCard(data)
+                    }
+                },
+                {
                     icon: 'add',
                     tooltip: 'Add Pack',
                     isFreeAction: true,
                     onClick: (event) => addPack()
                 },
                 {
-                    icon: 'delete',
-                    tooltip: 'Delete pack',
-                    onClick: (event, data: PackType | Array<PackType>) => {
-                        deletePack(data)
-                    }
-                },
-                {
-                    icon: 'update',
+                    icon: 'create',
                     tooltip: 'Update pack',
                     onClick: (event, data: PackType | Array<PackType>) => {
                         updatePacks(data)
@@ -87,6 +88,13 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, delet
                     tooltip: 'Cards',
                     onClick: (event, data: PackType | Array<PackType>) => {
                         goToCards(data)
+                    }
+                },
+                {
+                    icon: 'delete',
+                    tooltip: 'Delete pack',
+                    onClick: (event, data: PackType | Array<PackType>) => {
+                        deletePack(data)
                     }
                 },
             ]}
