@@ -16,7 +16,7 @@ export const RECOVER_PASSWORD = '/recoverPassword';
 export const NEW_PASS = '/newPass';
 export const PACKS = '/packs';
 export const CARDS = '/cards';
-export const LEARN = '/learn/:id';
+export const LEARN = '/learn';
 
 
 
