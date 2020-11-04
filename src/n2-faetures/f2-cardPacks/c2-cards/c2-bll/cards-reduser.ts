@@ -9,6 +9,8 @@ const SET_CARDS_PACK_ID: 'SET_CARDS_PACK_ID' = 'SET_CARDS_PACK_ID';
 
 const SET_ERROR: 'SET_ERROR' = 'SET_ERROR';
 const SET_FETCHING: 'SET_FETCHING' = 'SET_FETCHING';
+const SET_MODAL: 'SET_MODAL' = 'SET_MODAL';
+const SET_CURRENT_CARD_VALUES: 'SET_CURRENT_CARD_VALUES' = 'SET_CURRENT_CARD_VALUES';
 
 export type CardType = {
     _id: string;
@@ -46,12 +48,20 @@ type CardForUpdateType = {
     comments: string;
 }
 
-type InitialStateType = {
-    isError: boolean;
-    isFetching: boolean;
-    cardsPack_id: string;
-    cards: Array<CardType>;
+type ModalType = '' | 'add' | 'update' | 'delete' | 'error';
+
+export type CurrentCardValuesType = {
+    id: string;
+    question: string;
+    answer: string;
 }
+// type InitialStateType = {
+//     isError: boolean;
+//     isFetching: boolean;
+//     cardsPack_id: string;
+//     cards: Array<CardType>;
+//     currentModal: ModalType ;
+// }
 
 const initialState = {
     isError: false,
@@ -72,8 +82,15 @@ const initialState = {
         created: '',
         updated: '',
         __v: 0,
-    }]
+    }],
+    currentModal: '',
+    currentCardValues: {
+        id: '',
+        question: '',
+        answer: '',
+    }
 };
+type InitialStateType = typeof initialState;
 
 
 export const cardsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -111,7 +128,19 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 cardsPack_id: action.id,
             }
-
+        case SET_MODAL:
+            return {
+                ...state,
+               currentModal: action.modal,
+            }
+        case SET_CURRENT_CARD_VALUES:
+            return {
+                ...state,
+                currentCardValues: {
+                    ...state.currentCardValues,
+                    ...action.payload,
+                },
+            }
         default:
             return state;
     }
@@ -127,10 +156,14 @@ const setCardsPackIdAC = (id: string) => ({type: SET_CARDS_PACK_ID, id} as const
 
 const setErrorAC = (isError: boolean) => ({type: SET_ERROR, isError} as const);
 const setFetchingAC = (isFetching: boolean) => ({type: SET_FETCHING, isFetching} as const);
+const currentModalAC = (modal: ModalType) => ({type: SET_MODAL, modal} as const);
+const setCurrentCardValuesAC = (payload: CurrentCardValuesType) => ({type: SET_CURRENT_CARD_VALUES, payload} as const);
 
 // types
 type ActionsType = ReturnType<typeof setCardsAC | typeof setErrorAC | typeof setFetchingAC |
-    typeof addCardAC | typeof deleteCardAC | typeof updateCardAC | typeof setCardsPackIdAC> ;
+    typeof addCardAC | typeof deleteCardAC | typeof updateCardAC | typeof setCardsPackIdAC |
+    typeof currentModalAC | typeof setCurrentCardValuesAC>
+
 
 export const setCardsTC = (cardsPack_id: string, cardAnswer?: string, cardQuestion?: string,
                            min?: number, max?: number, shortCards?: string, grade?: number,
@@ -205,3 +238,11 @@ export const updateCardTC = (id: string, question?: string, answer?: string, gra
 export const setCardsPackIdTC = (cardsPackId: string) => (dispatch: Dispatch) => {
     dispatch(setCardsPackIdAC(cardsPackId));
 }
+
+export const toggleModalTC = (modal: ModalType) => (dispatch: Dispatch) => {
+    dispatch(currentModalAC(modal))
+};
+
+export const setCurrentCardValuesTC = (payload: CurrentCardValuesType) => (dispatch: Dispatch) => {
+    dispatch(setCurrentCardValuesAC(payload));
+};
