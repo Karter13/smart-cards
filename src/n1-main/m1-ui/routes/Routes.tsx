@@ -16,7 +16,7 @@ export const RECOVER_PASSWORD = '/recoverPassword';
 export const NEW_PASS = '/newPass';
 export const PACKS = '/packs';
 export const CARDS = '/cards';
-export const LEARN = '/learn';
+export const LEARN = '/learn/:id';
 
 
 
@@ -30,7 +30,8 @@ export const Routes = () => {
             <Route path={NEW_PASS} render={() => <NewPass/>}/>
             <Route path={PACKS} render={() => <PacksPage/>}/>
             <Route path={CARDS} render={() => <CardsPage/>}/>
-            <Route path={LEARN} render={() => <LearnPage/>}/>
+            {/*<Route path={LEARN} render={() => <LearnPage/>}/>*/}
+            <Route path={'/learn/:id'} render={() => <LearnPage/>}/>
         </div>
     )
 };

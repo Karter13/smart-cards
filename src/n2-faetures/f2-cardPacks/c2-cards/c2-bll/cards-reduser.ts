@@ -20,7 +20,7 @@ export type CardType = {
     shots: number;
     comments: string;
     type: string;
-    rating: string;
+    rating: number;
     more_id: string;
     created: string;
     updated: string;
@@ -67,7 +67,7 @@ const initialState = {
         shots: 0,
         comments: '',
         type: '',
-        rating: '',
+        rating: 0,
         more_id: '',
         created: '',
         updated: '',
