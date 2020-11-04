@@ -1,10 +1,13 @@
 import {Dispatch} from 'redux';
 import {packsAPI} from '../p3-dal/packs-api';
+import {CurrentCardValuesType} from "../../c2-cards/c2-bll/cards-reduser";
 
 const SET_PACKS = 'SET_PACKS';
 const ADD_PACK = 'ADD_PACK';
 const DELETE_PACK = 'DELETE_PACK';
 const UPDATE_PACK = 'UPDATE_PACK';
+const SET_MODAL: 'SET_MODAL' = 'SET_MODAL';
+const SET_CURRENT_PACK_VALUES: 'SET_CURRENT_PACK_VALUES' = 'SET_CURRENT_PACK_VALUES';
 
 const initialState: PacksInitialStateType = {
     cardPacks: [
@@ -137,6 +140,11 @@ const initialState: PacksInitialStateType = {
     pageCount: 100,
     token: 'fac9dcd0-1847-11eb-8597-0b97c01a13e4',
     tokenDeathTime: 1603809099421,
+    currentModal: '',
+    currentPackValues: {
+        id: '',
+        name: '',
+    },
 };
 
 export const packsReduser = (state: PacksInitialStateType = initialState, action: ActionsType): PacksInitialStateType => {
@@ -161,6 +169,19 @@ export const packsReduser = (state: PacksInitialStateType = initialState, action
                 ...state, cardPacks: state.cardPacks.map(pack => pack._id === action.id ? {...pack, name: action.name} : pack)
             }
         }
+        case SET_MODAL:
+            return {
+                ...state,
+                currentModal: action.modal,
+            }
+        case SET_CURRENT_PACK_VALUES:
+            return {
+                ...state,
+                currentPackValues: {
+                    ...state.currentPackValues,
+                    ...action.payload,
+                }
+            }
         default:
             return state
     }
@@ -171,6 +192,8 @@ export const setPacksAC = (packs: Array<PackType>) => ({type: SET_PACKS, packs} 
 export const addPackAC = (pack: PackType) => ({type: ADD_PACK, pack} as const);
 export const deletePackAC = (id: string) => ({type: DELETE_PACK, id} as const);
 export const updatePackAC = (id: string, name: string) => ({type: UPDATE_PACK, id, name} as const);
+const setModalAC = (modal: ModalType) => ({type: SET_MODAL, modal} as const);
+const setCurrentPackValuesAC = (payload: CurrentPackValuesType) => ({type: SET_CURRENT_PACK_VALUES, payload} as const);
 
 // thunk
 export const requestPacksT = () => (dispatch: Dispatch) => {
@@ -196,6 +219,12 @@ export const updatePackT = (cardsPack: {_id: string, name: string}) => (dispatch
         .then(() => {
             dispatch(updatePackAC(cardsPack._id, cardsPack.name))
         }).catch(() => console.log('update error'))
+};
+export const setModalT = (modal: ModalType) => (dispatch: Dispatch) => {
+    dispatch(setModalAC(modal))
+};
+export const setCurrentPackValuesT = (payload: CurrentPackValuesType) => (dispatch: Dispatch) => {
+    dispatch(setCurrentPackValuesAC(payload));
 };
 
 export type PackType = {
@@ -240,10 +269,19 @@ export type PacksInitialStateType = {
     pageCount: number
     token: string
     tokenDeathTime: number
+    currentModal: ModalType
+    currentPackValues: CurrentPackValuesType
 }
 type  ActionsType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof addPackAC>
     | ReturnType<typeof deletePackAC>
     | ReturnType<typeof updatePackAC>
+    | ReturnType<typeof setModalAC>
+    | ReturnType<typeof setCurrentPackValuesAC>
 
+type ModalType = '' | 'add' | 'update' | 'delete' | 'error';
 
+export type CurrentPackValuesType = {
+    id: string;
+    name: string;
+}

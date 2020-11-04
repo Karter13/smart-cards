@@ -1,6 +1,14 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addPackT, deletePackT, PackType, requestPacksT, updatePackT} from '../p2-bll/packs-reducer';
+import {
+    addPackT,
+    deletePackT,
+    PackType,
+    requestPacksT,
+    setCurrentPackValuesT,
+    setModalT,
+    updatePackT
+} from '../p2-bll/packs-reducer';
 import {AppRootStateType} from '../../../../n1-main/m2-bll/store';
 import {CARDS} from '../../../../n1-main/m1-ui/routes/Routes';
 import {useHistory} from 'react-router-dom';
@@ -8,7 +16,6 @@ import {PacksTable} from './PacksTable';
 import {Checkbox} from '../../../../n1-main/m1-ui/common/Checkbox/Checkbox';
 
 export const PacksContainer = () => {
-
 
 
     const packs = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks);
@@ -23,9 +30,14 @@ export const PacksContainer = () => {
         !Array.isArray(pack) && history.push(CARDS + '/' + pack._id)
     };
 
-    const addPack = () => {
-        dispatch(addPackT({name: 'NEW PACK'}))
+    const addPack = (nameObj: { name: string }) => {
+        dispatch(addPackT(nameObj));
+        dispatch(setModalT(''));
     };
+
+    const onAddPackHandler = () => {
+        dispatch(setModalT('add'));
+    }
 
     const deletePack = (pack: PackType | Array<PackType>) => {
         if (!Array.isArray(pack)) {
@@ -33,12 +45,19 @@ export const PacksContainer = () => {
         }
     };
 
-    const updatePacks = (pack: PackType | Array<PackType>) => {
-        if (!Array.isArray(pack)) {
-            dispatch(updatePackT({_id: pack._id, name: 'GOOD CARDS'}));
-        }
+    const updatePacks = (updateObj: { _id: string, name: string }) => {
+        dispatch(updatePackT(updateObj));
     };
 
+    const onUpdatePackHandler = (pack: PackType | Array<PackType>) => {
+        if (!Array.isArray(pack)) {
+            dispatch(setModalT('update'));
+            dispatch(setCurrentPackValuesT({
+                id: pack._id,
+                name: pack.name,
+            }));
+        }
+    }
     return (
         <div>
             <div>
@@ -47,7 +66,10 @@ export const PacksContainer = () => {
             </div>
             <PacksTable packs={packs} addPack={addPack}
                         deletePack={deletePack} goToCards={goToCards}
-                        updatePacks={updatePacks}/>
+                        updatePacks={updatePacks}
+                        onAddPackHandler={onAddPackHandler}
+                        onUpdatePackHandler={onUpdatePackHandler}
+            />
         </div>
     )
 };

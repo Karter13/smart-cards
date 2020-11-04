@@ -1,19 +1,69 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import {PackType} from '../p2-bll/packs-reducer';
+import {CurrentPackValuesType, PackType} from '../p2-bll/packs-reducer';
+import {CustomModal} from "../../../../n1-main/m1-ui/common/Modal/CustomModal";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../../../n1-main/m2-bll/store";
 
 type PacksTablePropsType = {
     packs: Array<PackType>
-    addPack: () => void
+    addPack: (nameObj:{name: string}) => void
     deletePack: (pack: PackType | Array<PackType>) => void
-    updatePacks: (pack: PackType | Array<PackType>) => void
+    updatePacks: (updateObj: {_id: string, name: string}) => void
     goToCards: (pack: PackType | Array<PackType>) => void
+    onAddPackHandler: () => void
+    onUpdatePackHandler: (pack: PackType | Array<PackType>) => void
 }
 
-export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, deletePack, goToCards, updatePacks}) => {
+export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, deletePack, goToCards, updatePacks,
+                                                          onAddPackHandler, onUpdatePackHandler}) => {
 
+    const currentModal = useSelector<AppRootStateType>(state => state.packs.currentModal);
+    const currentPackValues = useSelector<AppRootStateType, CurrentPackValuesType>(state => state.packs.currentPackValues);
 
+    let displayModal;
+    switch (currentModal) {
+        case 'add':
+            displayModal = <CustomModal
+                heading={'Add new pack'}
+                fields={[{title: 'Name'}]}
+                showModal={true}
+                isEditFields={true}
+                callback={(values) => addPack({name: values.Name})}
+            />;
+            break;
+        case 'delete':
+            displayModal = <CustomModal
+                heading={'Delete card'}
+                fields={[{title: 'Are you sure?'}]}
+                showModal={true}
+                isEditFields={false}
+            />;
+            break;
+        case 'error':
+            displayModal = <CustomModal
+                heading={'Error!'}
+                fields={[{title: 'Error!'}]}
+                showModal={true}
+                isEditFields={false}
+            />;
+            break;
+        case 'update':
+            displayModal = <CustomModal
+                heading={'Update card'}
+                fields={[{title: 'Name', value: currentPackValues.name}]}
+                packId={currentPackValues.id}
+                showModal={true}
+                isEditFields={true}
+                callback={(_id, values) => updatePacks({_id, name: values.Name})}
+            />;
+            break;
+        default:
+            displayModal = '';
+    }
     return (
+        <>
+            {displayModal}
         <MaterialTable
             title="CardPacs"
             columns={[
@@ -66,7 +116,7 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, delet
                     icon: 'add',
                     tooltip: 'Add Pack',
                     isFreeAction: true,
-                    onClick: (event) => addPack()
+                    onClick: (event) => onAddPackHandler(),
                 },
                 {
                     icon: 'delete',
@@ -79,7 +129,7 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, delet
                     icon: 'update',
                     tooltip: 'Update pack',
                     onClick: (event, data: PackType | Array<PackType>) => {
-                        updatePacks(data)
+                        onUpdatePackHandler(data)
                     }
                 },
                 {
@@ -103,5 +153,6 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({packs, addPack, delet
                 margin: '20px auto'
             }}
         />
+        </>
     )
 };
