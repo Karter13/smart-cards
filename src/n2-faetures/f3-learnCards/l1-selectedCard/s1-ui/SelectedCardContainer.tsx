@@ -5,8 +5,8 @@ import {BackPartCard} from './BackPartCard/BackPartCard';
 import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../../n1-main/m2-bll/store';
-import { setCardsTC} from '../../../f2-cardPacks/c2-cards/c2-bll/cards-reduser';
-import {addNewCard, CardType} from '../s2-bll/selectCard-reducer';
+import {setCardsTC} from '../../../f2-cardPacks/c2-cards/c2-bll/cards-reduser';
+import {addNewCardTC, CardType, updateCardGradeTC} from '../s2-bll/selectCard-reducer';
 
 const getCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -39,7 +39,7 @@ export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = R
         }
 
         if (cards.length > 0) {
-            dispatch(addNewCard(getCard(cards)))
+            dispatch(addNewCardTC(getCard(cards)))
         }
         return () => {
             console.log('useEffect off');
@@ -54,13 +54,13 @@ export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = R
     const onNext = useCallback(() => {
         setIsChecked(false)
         if (cards.length > 0) {
-            dispatch(addNewCard(getCard(cards)))
+            dispatch(addNewCardTC(getCard(cards)))
         }
     }, [cards, dispatch]);
 
     const toSendRating = (value: number) => {
-        console.log(value)
-        // dispatch(sendRating(value))
+        let cardId = learnCard._id;
+        dispatch(updateCardGradeTC(value, cardId))
     };
 
     return (

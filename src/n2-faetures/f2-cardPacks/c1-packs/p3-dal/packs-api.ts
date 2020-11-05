@@ -1,13 +1,11 @@
-import axios, {AxiosRequestConfig} from 'axios';
+import axios from 'axios';
 import {BACK_URL} from '../../../../n0-config/config';
-import {CreatePackType, DeletePackType, PacksInitialStateType, PackType, UpdatePackType} from '../p2-bll/packs-reducer';
+import {CreatePackType, DeletePackType, PacksInitialStateType, UpdatePackType} from '../p2-bll/packs-reducer';
 
 const instanse = axios.create({
     baseURL: BACK_URL,
     withCredentials: true
 });
-
-// const x: AxiosRequestConfig
 
 export const packsAPI = {
     getPacks(pageCount: number = 1000) {

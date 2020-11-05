@@ -1,4 +1,5 @@
 import {Dispatch} from 'redux';
+import {cardAPI} from '../s3-dal/selectCard-api';
 
 const ADD_NEXT_CARD = 'selectCard/ADD_NEXT_CARD';
 
@@ -35,9 +36,16 @@ export const cardReducer = (state: CardType = initialState, action: ActionsType)
 const ActionsTypeAC = (card: CardType) => ({type: ADD_NEXT_CARD, card} as const);
 
 //thunks
-export const addNewCard = (card: CardType) => (dispatch: Dispatch) => {
+export const addNewCardTC = (card: CardType) => (dispatch: Dispatch) => {
     dispatch(ActionsTypeAC(card))
-}
+};
+export const updateCardGradeTC = (value: number, cardId: string) => (dispatch: Dispatch) => {
+    cardAPI.sendCardGrade(value, cardId)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(() => console.log('same error'))
+};
 
 //types
 export type CardType = {

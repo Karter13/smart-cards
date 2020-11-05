@@ -173,7 +173,7 @@ export const packsReduser = (state: PacksInitialStateType = initialState, action
             return {
                 ...state,
                 currentModal: action.modal,
-            }
+            };
         case SET_CURRENT_PACK_VALUES:
             return {
                 ...state,
@@ -206,7 +206,7 @@ export const addPackT = (cardsPack: { name: string }) => (dispatch: Dispatch) =>
     packsAPI.createPack(cardsPack)
         .then(data => {
             dispatch(addPackAC(data))
-        })
+        }).catch(() => console.log('error'))
 };
 export const deletePackT = (id: string) => (dispatch: Dispatch) => {
     packsAPI.deletePack(id)
