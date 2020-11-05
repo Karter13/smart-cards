@@ -28,7 +28,6 @@ export type CardType = {
     updated: string;
     __v: number;
 }
-
 type CardForSendType = {
     cardsPack_id: string;
     question?: string;

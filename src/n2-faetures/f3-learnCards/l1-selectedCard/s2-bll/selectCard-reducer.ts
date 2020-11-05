@@ -1,10 +1,12 @@
-const SHOW_BACK_PART_CARD = 'selectCard/SHOW_BACK_PART_CARD';
+import {Dispatch} from 'redux';
+
+const ADD_NEXT_CARD = 'selectCard/ADD_NEXT_CARD';
 
 const initialState: CardType = {
     _id: 'fake',
     cardsPack_id: '',
     answer: 'answer fake',
-    question: 'question fake',
+    question: 'question',
     grade: 0,
     shots: 0,
     type: '',
@@ -17,11 +19,11 @@ const initialState: CardType = {
     __v: 0,
 };
 
-export const cardReducer = (state: CardType = initialState, action: any) => {
+export const cardReducer = (state: CardType = initialState, action: ActionsType): CardType => {
     switch (action.type) {
-        case SHOW_BACK_PART_CARD: {
+        case ADD_NEXT_CARD: {
             return {
-                ...state
+                ...state, ...action.card
             }
         }
         default:
@@ -29,6 +31,15 @@ export const cardReducer = (state: CardType = initialState, action: any) => {
     }
 };
 
+//actions
+const ActionsTypeAC = (card: CardType) => ({type: ADD_NEXT_CARD, card} as const);
+
+//thunks
+export const addNewCard = (card: CardType) => (dispatch: Dispatch) => {
+    dispatch(ActionsTypeAC(card))
+}
+
+//types
 export type CardType = {
     _id: string;
     cardsPack_id: string;
@@ -45,3 +56,4 @@ export type CardType = {
     comments?: string;
     __v?: number;
 }
+type ActionsType = ReturnType<typeof ActionsTypeAC>

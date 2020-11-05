@@ -9,6 +9,11 @@ type BackPartCardPropsType = {
 }
 
 export const BackPartCard: React.FC<BackPartCardPropsType> = React.memo(({onNext, card}) => {
+
+    const toSendRating = () => {
+
+    }
+
     return (
         <div>
             <h3>Answer</h3>
@@ -16,9 +21,7 @@ export const BackPartCard: React.FC<BackPartCardPropsType> = React.memo(({onNext
                 <p>{card.answer}</p>
             </div>
             <div>
-                {grades.map((value, index) => (<Button key={'value-' + index} value={value} click={() => {
-                        console.log('click')
-                    }}/>
+                {grades.map((value, index) => (<Button key={'value-' + index} value={value} click={toSendRating}/>
                 ))}
             </div>
             <Button value={'следующая карта'} click={onNext}/>
