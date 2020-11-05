@@ -48,7 +48,6 @@ export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = R
     }, [dispatch, id, cards, first]);
 
 
-
     const onCheck = useCallback(() => {
         setIsChecked(true);
     }, [isChecked]);
@@ -59,6 +58,11 @@ export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = R
         }
     }, [cards, dispatch]);
 
+    const toSendRating = (value: number) => {
+        console.log(value)
+        // dispatch(sendRating(value))
+    };
+
     return (
         <div className={stales.cardBody}>
 
@@ -68,7 +72,7 @@ export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = R
 
             {isChecked &&
             <div>
-                <BackPartCard onNext={onNext} card={learnCard}/>
+                <BackPartCard click={toSendRating} onNext={onNext} card={learnCard}/>
             </div>
             }
         </div>
