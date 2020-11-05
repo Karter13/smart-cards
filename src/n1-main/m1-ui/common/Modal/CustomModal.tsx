@@ -54,7 +54,7 @@ export const CustomModal: FC<PropsType> = ({
         onSubmit: values => {
             console.log(values)
             if (callback) {
-                packId ? callback(packId, values) : values? callback(values) : callback();
+                packId ? callback(packId, values) : values ? callback(values) : callback();
             }
         },
     });
@@ -62,51 +62,42 @@ export const CustomModal: FC<PropsType> = ({
     const classes = useStyles();
     const [open, setOpen] = useState(showModal);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
     const handleClose = () => {
         setOpen(false);
     };
 
     return (
-        <div>
-            <button type="button" onClick={handleOpen}>
-                react-transition-group
-            </button>
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={open}>
-                    <div className={classes.paper}>
-                        <h2 id="transition-modal-title">{heading}</h2>
+        <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+                timeout: 500,
+            }}
+        >
+            <Fade in={open}>
+                <div className={classes.paper}>
+                    <h2 id="transition-modal-title">{heading}</h2>
 
-                        {!isEditFields ? fields.map(({title, value}) => <p><span>{title}</span> {value}</p>) :
-                            <form onSubmit={formik.handleSubmit}>
-                                {
-                                    fields.map(({title, value}) => <p><span>{title}</span> <textarea
-                                        id={title}
-                                        name={title}
-                                        value={formik.values[title]}
-                                        onChange={formik.handleChange}
-                                    /></p>)
-                                }
-                                <button type={"submit"} onClick={handleClose}>Save</button>
-                            </form>
-                        }
-                    </div>
-                </Fade>
-            </Modal>
-        </div>
+                    {!isEditFields ? fields.map(({title, value}) => <p><span>{title}</span> {value}</p>) :
+                        <form onSubmit={formik.handleSubmit}>
+                            {
+                                fields.map(({title, value}) => <p><span>{title}</span> <textarea
+                                    id={title}
+                                    name={title}
+                                    value={formik.values[title]}
+                                    onChange={formik.handleChange}
+                                /></p>)
+                            }
+                            <button type={"submit"} onClick={handleClose}>Save</button>
+                        </form>
+                    }
+                </div>
+            </Fade>
+        </Modal>
     );
 }
