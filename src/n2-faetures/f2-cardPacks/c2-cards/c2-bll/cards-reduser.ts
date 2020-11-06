@@ -1,11 +1,13 @@
-import {AnyAction, Dispatch} from "redux";
-import {CardsApi} from "../c3-dal/cards-api";
+import {AnyAction, Dispatch} from 'redux';
+import {CardsApi} from '../c3-dal/cards-api';
 
 const SET_CARDS: 'SET_CARDS' = 'SET_CARDS';
 const ADD_CARD: 'ADD_CARD' = 'ADD_CARD';
 const DELETE_CARD: 'DELETE_CARD' = 'DELETE_CARD';
 const UPDATE_CARD: 'UPDATE_CARD' = 'UPDATE_CARD';
 const SET_CARDS_PACK_ID: 'SET_CARDS_PACK_ID' = 'SET_CARDS_PACK_ID';
+const UPDATE_CARD_GRADE: 'UPDATE_CARD_GRADE' = 'UPDATE_CARD_GRADE';
+
 
 const SET_ERROR: 'SET_ERROR' = 'SET_ERROR';
 const SET_FETCHING: 'SET_FETCHING' = 'SET_FETCHING';
@@ -130,7 +132,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
         case SET_MODAL:
             return {
                 ...state,
-               currentModal: action.modal,
+                currentModal: action.modal,
             }
         case SET_CURRENT_CARD_VALUES:
             return {
@@ -140,6 +142,12 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
                     ...action.payload,
                 },
             }
+        case UPDATE_CARD_GRADE: {
+            return {
+                ...state,
+                cards: state.cards.map(card => card._id === action.payload.id ? {...card, grade: action.payload.grade} : {...card})
+            }
+        }
         default:
             return state;
     }
@@ -151,6 +159,10 @@ const addCardAC = (payload: CardForSendType) => ({type: ADD_CARD, payload} as co
 const deleteCardAC = (id: string) => ({type: DELETE_CARD, id} as const);
 const updateCardAC = (payload: CardForUpdateType) => ({type: UPDATE_CARD, payload} as const);
 const setCardsPackIdAC = (id: string) => ({type: SET_CARDS_PACK_ID, id} as const);
+export const updateCardGradeAC = (payload: { id: string, grade: number }) => ({
+    type: UPDATE_CARD_GRADE,
+    payload
+} as const);
 
 
 const setErrorAC = (isError: boolean) => ({type: SET_ERROR, isError} as const);
@@ -161,7 +173,7 @@ const setCurrentCardValuesAC = (payload: CurrentCardValuesType) => ({type: SET_C
 // types
 type ActionsType = ReturnType<typeof setCardsAC | typeof setErrorAC | typeof setFetchingAC |
     typeof addCardAC | typeof deleteCardAC | typeof updateCardAC | typeof setCardsPackIdAC |
-    typeof currentModalAC | typeof setCurrentCardValuesAC>
+    typeof currentModalAC | typeof setCurrentCardValuesAC | typeof updateCardGradeAC>
 
 
 export const setCardsTC = (cardsPack_id: string, cardAnswer?: string, cardQuestion?: string,

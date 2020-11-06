@@ -1,7 +1,9 @@
 import {Dispatch} from 'redux';
 import {cardAPI} from '../s3-dal/selectCard-api';
+import {updateCardGradeAC} from '../../../f2-cardPacks/c2-cards/c2-bll/cards-reduser';
 
 const ADD_NEXT_CARD = 'selectCard/ADD_NEXT_CARD';
+
 
 const initialState: CardType = {
     _id: 'fake',
@@ -39,9 +41,12 @@ const ActionsTypeAC = (card: CardType) => ({type: ADD_NEXT_CARD, card} as const)
 export const addNewCardTC = (card: CardType) => (dispatch: Dispatch) => {
     dispatch(ActionsTypeAC(card))
 };
-export const updateCardGradeTC = (value: number, cardId: string) => (dispatch: Dispatch) => {
-    cardAPI.sendCardGrade(value, cardId)
+export const updateCardGradeTC = (grade: number, cardId: string) => (dispatch: Dispatch) => {
+    let id = cardId;
+    cardAPI.sendCardGrade(grade, cardId)
         .then(res => {
+            debugger
+            dispatch(updateCardGradeAC({id, grade}));
             console.log(res)
         })
         .catch(() => console.log('same error'))
@@ -65,3 +70,4 @@ export type CardType = {
     __v?: number;
 }
 type ActionsType = ReturnType<typeof ActionsTypeAC>
+

@@ -51,6 +51,12 @@ export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = R
     const onCheck = useCallback(() => {
         setIsChecked(true);
     }, [isChecked]);
+
+    const toSendRating = (grade: number) => {
+        let cardId = learnCard._id;
+        dispatch(updateCardGradeTC(grade, cardId))
+    };
+
     const onNext = useCallback(() => {
         setIsChecked(false)
         if (cards.length > 0) {
@@ -58,10 +64,7 @@ export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = R
         }
     }, [cards, dispatch]);
 
-    const toSendRating = (value: number) => {
-        let cardId = learnCard._id;
-        dispatch(updateCardGradeTC(value, cardId))
-    };
+
 
     return (
         <div className={stales.cardBody}>
