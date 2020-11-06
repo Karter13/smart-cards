@@ -42,12 +42,16 @@ export const addNewCardTC = (card: CardType) => (dispatch: Dispatch) => {
     dispatch(ActionsTypeAC(card))
 };
 export const updateCardGradeTC = (grade: number, cardId: string) => (dispatch: Dispatch) => {
-    let id = cardId;
+
     cardAPI.sendCardGrade(grade, cardId)
         .then(res => {
-            debugger
+            console.log(res);
+            console.log(res.card_id);
+            console.log(res.grade);
+            let id = res.card_id;
+            let grade = res.grade;
             dispatch(updateCardGradeAC({id, grade}));
-            console.log(res)
+
         })
         .catch(() => console.log('same error'))
 };
