@@ -23,7 +23,7 @@ const getCard = (cards: CardType[]) => {
 type SelectedCardContainerPropsType = {}
 export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = React.memo((props) => {
 
-    const learnCard = useSelector<AppRootStateType, CardType >(state => state.card);
+    const learnCard = useSelector<AppRootStateType, CardType>(state => state.card);
     const cards = useSelector<AppRootStateType, Array<CardType>>((store) => store.cards.cards);
     const dispatch = useDispatch();
     const {id} = useParams();
@@ -36,11 +36,12 @@ export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = R
         if (first) {
             dispatch(setCardsTC(id));
             setFirst(false)
+            if (cards.length > 0) {
+                dispatch(addNewCardTC(getCard(cards)))
+            }
         }
 
-        if (cards.length > 0) {
-            dispatch(addNewCardTC(getCard(cards)))
-        }
+
         return () => {
             console.log('useEffect off');
         }
@@ -63,7 +64,6 @@ export const SelectedCardContainer: React.FC<SelectedCardContainerPropsType> = R
             dispatch(addNewCardTC(getCard(cards)))
         }
     }, [cards, dispatch]);
-
 
 
     return (
